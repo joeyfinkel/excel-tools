@@ -1,77 +1,45 @@
 import collections
+import pandas as pd
 import pprint
-from Base import Base
-from itertools import takewhile
-from ItemTemplate import ItemTemplate
+import itertools
 from openpyxl import Workbook, load_workbook
+from Templates.item_template import ItemTemplate
 
 item = ItemTemplate()
+excel = Workbook()
 new_wb = Workbook()
-# original_book = load_workbook('C:/Users/joeyf/Desktop/Work/For Excel Automation/ciataasindata (1).xlsx')
-original_book = load_workbook('Grades.xlsx')
 
-sheet = original_book.active
+excel_sheet = excel.active
 new_sheet = new_wb.active
 
-ref_headers = item.compare_headers(item.ref_headers(), item.headers_from_sheet(sheet))
+csv_file = r'C:\Users\joeyf\Desktop\Work\For Excel Automation\americanbuyergroupasindata.csv'
+new_file = r'C:\Users\joeyf\Desktop\Work\For Excel Automation\ABG ASIN Data.xlsx'
 
+# original_book = item.csv_to_xlsx(csv_file, new_file)
+original_book = load_workbook(r'C:\Users\joeyf\Desktop\Test.xlsx')
+sheet = original_book.active
 
+ref_headers = item.ref_headers()
 
-# get column values
-column = []
-for idx, el in enumerate(ref_headers):
-    column.append(item.get_column(sheet, idx, 2))
+column = [item.get_column(sheet, idx, 2) for idx, el in enumerate(item.headers_from_sheet(sheet))]
+for idx, el in enumerate(item.headers_from_sheet(sheet)):
+    column[idx].insert(0, el)
 
-UPC = ''
-columns_from_sheet = ''
-for s in sheet.iter_rows(max_row = 1, values_only = True):
-    columns_from_sheet = s
+all_column = list(itertools.chain.from_iterable(column))
 
-    if 'upcList' in s:
-        UPC = columns_from_sheet.index('upcList')
+result = [all_column[idx::sheet.max_row] for idx, el in enumerate(all_column)]
+result = [r for r in result if len(r) == len(result[0])]
+print(result)
+headers = result[0]
+result = [r for r in result if result.index(r) > 0 ]
+result = [list(item.insert_every_n(headers, r, 1)) for r in result]
 
-
-# create list of same headers the length of the column
-headers = []
-for idx, el in enumerate(ref_headers):
-    headers.append(item.create_heading_list(el, len(column[idx])))
-
-# put header in between each value
-column_header_list = []
-for idx, el in enumerate(ref_headers):
-    column_header_list.append(list(item.insert_every_n(headers[idx], column[idx], k = 1)))
-
-# attributes
-attributes = []
-for idx, el in enumerate(column_header_list):
-    attributes.append(item.set_attributes(column_header_list[idx]))
-
-# creating the dict of values
 # data = []
-# for attribute in attributes:
-#     data.append(list(item.insert_every_n(item.get_column(sheet, UPC, 2), attribute, k=1)))
+# for res in result:
+#     data.append([res[res.index(x) +1] for x in ref_headers])
 
-# convert data to dict
-# data_dict = [item.convert(data[idx]) for idx, el in enumerate(data)]
+# print(data[0])
 
-upc_col = item.get_column(sheet, UPC, 2)
-results = []
-final = {}
-for idx, el in enumerate(attributes):
-    results.append(el[idx])
-
-for upc in upc_col:
-    for r in results:
-        for k, v in r.items():
-            final.setdefault(upc, {}).update({k:v})
-
-# for f in final:
-#     print(final[f].keys())
-# pprint.pprint(final)
-# print(results)
-# for f in final:
-#     print([f],list(final[f].values()))
-
-# item.populate_header(new_sheet, final[817354028563])
-# item.populate_col(new_sheet, final)
-# new_wb.save('ItemTemplate.xlsx')
+# item.populate_header(new_sheet, ref_headers)
+# item.populate_col(new_sheet, data)
+# new_wb.save(r'C:\Users\joeyf\Desktop\Work\For Excel Automation\ABG Item Template.xlsx')
