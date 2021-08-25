@@ -54,7 +54,6 @@ class ItemTemplate(Base):
 
         return list(chain(self.HEADERS['general_headers'], package_dims, product_dims, features))
 
-    @eel.expose
     def csv_to_xlsx(self, csv_filename, new_name):
         wb = Workbook()
         sheet = wb.active

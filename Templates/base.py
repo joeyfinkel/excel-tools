@@ -1,4 +1,5 @@
 import itertools
+from openpyxl import worksheet
 
 class Base:
     def get_column(self, sheet, column, row) -> list:
@@ -17,10 +18,3 @@ class Base:
                 yield next(i2)
             except StopIteration:
                 return
-
-    # inserting data to spreadsheet
-    def populate_header(self, sheet, data):
-        sheet.append(list(data))
-
-    def populate_col(self, sheet, data):
-        [sheet.append(d) for d in data]

@@ -1,3 +1,10 @@
 {
-  "cSpell.words": ["americanbuyergroupasindata", "asins", "itertools", "joeyf"]
+  "cSpell.words": [
+    "americanbuyergroupasindata",
+    "asins",
+    "itertools",
+    "joeyf",
+    "rtype"
+  ],
+  "git.ignoreLimitWarning": true
 }

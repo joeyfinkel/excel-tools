@@ -1,84 +1,110 @@
 import eel
-import ntpath
 import tkinter
 import itertools
 import tkinter.filedialog as filedialog
+import Templates.item_template as item_template
+import Templates.utils as utils
+import Templates.ItemTemplate.columns as columns
+import Templates.ItemTemplate.headers as headers
+import Templates.ItemTemplate.rows as rows
 from tkinter.filedialog import askopenfilename
 from openpyxl import Workbook, load_workbook
-from Templates.item_template import ItemTemplate
 
-template = ItemTemplate()
-excel = Workbook()
-new_wb = Workbook()
+template = item_template.ItemTemplate()
+util = utils.Utils()
+column = columns.Columns()
+header = headers.Headers()
 
-excel_sheet = excel.active
-new_sheet = new_wb.active
-ref_headers = template.ref_headers()
+eel.init("Web")
 
-eel.init('Web')
 
+@eel.expose
 def open_file_explorer():
     root = tkinter.Tk()
     root.withdraw()
-    root.wm_attributes('-topmost', 1)
-
-def init_worksheet(file):
-    wb = load_workbook(filename=file)
-    return wb.active
-
-@eel.expose
-def get_file():
-    '''
-    is exposed to use in async getFile()
-    return: full path of file
-    '''
-    open_file_explorer()
+    root.wm_attributes("-topmost", 1)
     file = filedialog.askopenfile()
+    if not file:
+        return None
+    filename = file.name
+    return filename
 
-    return file.name
 
 @eel.expose
-def set_file():
-    # is exposed to use in async getFile()
-    file = get_file()
-    column = get_columns(file)
-    print(column)
+def get_file(path):
+    return path
+
 
 @eel.expose
 def get_columns(file):
-    sheet = init_worksheet(file)
-    column = [template.get_column(sheet, idx, 2) for idx, el in enumerate(template.headers_from_sheet(sheet))]
-    [column[idx].insert(0, el) for idx, el in enumerate(template.headers_from_sheet(sheet))]
+    sheet = util.init_worksheet(file)
+    headers = template.headers_from_sheet(sheet)
+    return [
+        column.get_columns_with_header(sheet, idx) for idx, el in enumerate(headers)
+    ]
 
-    return column
+
+@eel.expose
+def get_columns_by_row(file, data):
+    sheet = util.init_worksheet(file)
+
+    return column.get_columns_by_row(sheet, data)
+
+
+@eel.expose
+def get_column_data(file):
+    sheet = util.init_worksheet(file)
+
+    return [
+        template.get_column(sheet, idx, 2)
+        for idx, el in enumerate(template.headers_from_sheet(sheet))
+    ]
+
 
 @eel.expose
 def get_total_columns(file):
-    ''' return: amount of columns in sheet '''
-    sheet = init_worksheet(file)
-    return sheet.max_column
+    return column.get_total_columns(file)
+
 
 @eel.expose
 def get_total_rows(file):
-    ''' return: amount of rows in sheet '''
-    sheet = init_worksheet(file)
-    return sheet.max_row
+    return rows.Rows().get_total_rows(file)
+
 
 @eel.expose
-def data_to_table(file, data):
-    sheet = init_worksheet(file)
-    column = list(itertools.chain.from_iterable(data))
-    result = [column[idx::sheet.max_row] for idx, el in enumerate(column)]
-    result = [r for r in result if len(r) == len(result[0])]
+def get_headers(file, file_data):
+    sheet = util.init_worksheet(file)
 
-    return result
+    return header.get_headers(sheet, file_data)
 
-# def convert_to_csv(file, new_filename='Item Template'):
-#     item_template.convert_to_csv(file,f'{new_filename}.xlsx')
 
-eel.start('index.html')
+@eel.expose
+def final_column_list(file, final_headers):
+    sheet = util.init_worksheet(file)
+    data = column.final_columns(file, sheet, final_headers)
 
-while True:
-    eel.sendFileToPython()(set_file)
-    eel.sleep(10.0)
-    # break
+    return util.create_row_to_add(data, final_headers)
+
+
+@eel.expose
+def set_final_headers(original_headers, new_headers):
+    return header.compare(original_headers, new_headers)
+
+
+@eel.expose
+def final_data(file, data, original_headers, new_headers):
+    final_headers = set_final_headers(original_headers, new_headers)
+    empty_string_list = column.insert_empty_string(data, final_headers)
+
+    return column.create_final_data(empty_string_list, final_headers)
+
+
+@eel.expose
+def save_new_sheet(headers, columns, name):
+    wb = Workbook()
+    header.populate(wb.active, headers)
+    column.populate(wb.active, columns)
+    wb.save(f"{util.choose_download_location()}/{name}.xlsx")
+
+
+eel.start("index.html", size=(1024, 768))

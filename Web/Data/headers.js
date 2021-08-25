@@ -1,39 +1,38 @@
-import Checkbox from '../HtmlElements/checkbox.js';
-import Label from '../HtmlElements/label.js';
-import Title from '../HtmlElements/title.js';
-import properties from '../HtmlElements/elementProps.js';
+import { Form } from '../Components/form.js';
+import { Title } from '../Components/title.js';
+import { Checkbox } from '../Components/checkbox.js';
+import { Label } from '../Components/label.js';
+import { Button } from '../Components/button.js';
 
-export default class Header {
-  sheetHeaders = [];
-  refHeaders = [];
+export const FinalHeaderList = {
+  headers: [],
+  keptHeaderOutput: document.getElementById('headers-to-keep'),
+  changeFinalHeadersList(header) {
+    !this.headers.includes(header)
+      ? this.headers.push(header)
+      : this.headers.splice(this.headers.indexOf(header), 1);
+    return this.headers.join(', ');
+  },
+  changeHeadersToKeepMessage(checkbox) {
+    this.keptHeaderOutput.innerHTML = checkbox.checked
+      ? `Headers to keep: <strong> ${this.changeFinalHeadersList(
+          checkbox.value
+        )}</strong>`
+      : `Headers to keep: <strong>${this.changeFinalHeadersList(
+          checkbox.value
+        )}</strong>`;
+  },
+  showMessage() {
+    this.keptHeaderOutput.innerHTML =
+      '<strong>Please choose headers to keep</strong>';
+  },
+};
 
-  constructor(data) {
-    this.data = data;
-  }
-
-  displayHeaders() {
-    const divId = properties.div.id;
-    const title = new Title(properties.title.text);
-    const checkbox = new Checkbox(
-      properties.checkbox.class,
-      properties.checkbox.id,
-      properties.checkbox.name
-    );
-    const label = new Label(properties.label.class, properties.label.id);
-
-    title.addToDiv(divId);
-
-    this.data.forEach((header) => {
-      this.sheetHeaders.push(header);
-      checkbox.addToDiv(divId);
-      label.addToDiv(divId, properties.checkbox.id, header);
-    });
-    checkbox.addOnClickEvent(checkboxName, () => {
-      const box = document.getElementsByName(properties.checkbox.name);
-      if (box.checked) {
-        // console.log(label.id);
-        console.log(box.value);
-      }
-    });
-  }
-}
+export const displayHeadersArea = async (path, columns, header) => {
+  Form.add('headerOutput');
+  Title.add(Form.id);
+  Checkbox.add(Form.id, header);
+  Label.createForEachHeader(header);
+  Button.add(Form.id, path, columns, header, FinalHeaderList.headers);
+  FinalHeaderList.showMessage();
+};

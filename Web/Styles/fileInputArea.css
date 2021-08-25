@@ -1,0 +1,15 @@
+.drop-area {
+  border: 2px dashed #ccc;
+  border-radius: 20px;
+  width: 480px;
+  font-family: sans-serif;
+  padding: 20px;
+}
+
+.drop-area.highlight {
+  border-color: purple;
+}
+
+.file-input {
+  margin-bottom: 10px;
+}
