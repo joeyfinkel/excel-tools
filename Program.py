@@ -34,7 +34,7 @@ for idx, el in enumerate(item.headers_from_sheet(sheet)):
     column[idx].insert(0, el)
 
 all_column = list(itertools.chain.from_iterable(column))
-
+print(column)
 result = [all_column[idx :: sheet.max_row] for idx, el in enumerate(all_column)]
 result = [r for r in result if len(r) == len(result[0])]
 

@@ -1,4 +1,4 @@
-import { FinalHeaderList } from '../../Data/headers.js';
+import { FinalHeaderList } from '../Data/headers.js';
 
 export const Checkbox = {
   id: 'flexCheckDefault',

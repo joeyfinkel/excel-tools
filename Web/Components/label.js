@@ -1,9 +1,11 @@
 import { Checkbox } from './checkbox.js';
 import { Form } from './form.js';
+import { Div } from './div.js';
 
 export const Label = {
   id: 'flexCheckDefault',
   class: 'form-check-label',
+
   create(text) {
     const label = document.createElement('label');
     label.id = this.id;
@@ -20,9 +22,22 @@ export const Label = {
     element.appendChild(document.createElement('br'));
   },
   createForEachHeader(headers) {
+    const headerLabelWrapper = Div.create(
+      'headerLabelWrapper',
+      'header-label-wrapper'
+    );
+
     headers.forEach((header) => {
-      Checkbox.add(Form.id, header);
-      this.add(Form.id, header);
+      const div = Div.create(
+        'individualHeaderWrapper',
+        'individual-header-wrapper'
+      );
+
+      div.appendChild(Checkbox.create(header));
+      div.appendChild(this.create(header));
+      headerLabelWrapper.appendChild(div);
     });
+
+    return headerLabelWrapper;
   },
 };

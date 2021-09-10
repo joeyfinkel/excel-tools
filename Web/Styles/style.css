@@ -3,3 +3,15 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
+
+.info-wrapper,
+.template-buttons {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.template-buttons {
+  gap: 10px;
+  grid-auto-flow: column;
+}

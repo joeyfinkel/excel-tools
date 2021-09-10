@@ -15,7 +15,7 @@ class Utils:
         """
         if file.endswith(":"):
             file = file[:-1]
-            
+
         wb = load_workbook(filename=file)
 
         return wb.active

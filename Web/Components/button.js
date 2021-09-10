@@ -1,9 +1,74 @@
 import { TextBox } from './textBox.js';
+import { FileData } from '../Data/fileData.js';
 
 export const Button = {
-  id: 'createSheetBtn',
-  class: 'btn btn-secondary mt-3',
-  text: 'Create New Sheet',
+  create(className, id, text, type) {
+    const button = document.createElement('button');
+    button.className = className;
+    button.id = id;
+    button.textContent = text;
+    button.type = type;
+
+    return button;
+  },
+};
+
+export const UploadCSVButton = {
+  create(className, id, text, type) {
+    const button = document.createElement('button');
+    button.className = className;
+    button.id = id;
+    button.textContent = text;
+    button.type = type;
+
+    button.addEventListener(
+      'click',
+      async () => FileData.showSheetInformation(),
+      false
+    );
+    return button;
+  },
+};
+
+export const ImageUploadButton = {
+  create(className, id, text, type) {
+    const button = document.createElement('button');
+    button.className = className;
+    button.id = id;
+    button.textContent = text;
+    button.type = type;
+
+    button.addEventListener(
+      'click',
+      async () => {
+        console.log('ImageUploadButton');
+      },
+      false
+    );
+    return button;
+  },
+};
+
+export const IdUploadButton = {
+  create(className, id, text, type) {
+    const button = document.createElement('button');
+    button.className = className;
+    button.id = id;
+    button.textContent = text;
+    button.type = type;
+
+    button.addEventListener(
+      'click',
+      async () => {
+        console.log('IdUploadButton');
+      },
+      false
+    );
+    return button;
+  },
+};
+
+export const NewSheetButton = {
   async createNewSheet(file, data, originalHeaders, newHeaders) {
     const columnsByRow = await eel.get_columns_by_row(file, data)();
     const finalHeaders = await eel.set_final_headers(
@@ -19,24 +84,5 @@ export const Button = {
     const newFilename = TextBox.reference().value;
 
     newFilename && eel.save_new_sheet(finalHeaders, finalColumns, newFilename);
-  },
-  create(file, data, originalHeaders, newHeaders) {
-    const button = document.createElement('button');
-    button.id = this.id;
-    button.className = this.class;
-    button.textContent = this.text;
-    button.type = 'button';
-    button.addEventListener(
-      'click',
-      () => this.createNewSheet(file, data, originalHeaders, newHeaders),
-      false
-    );
-
-    return button;
-  },
-  add(id, file, data, originalHeaders, newHeaders) {
-    document
-      .getElementById(id)
-      .appendChild(this.create(file, data, originalHeaders, newHeaders));
   },
 };

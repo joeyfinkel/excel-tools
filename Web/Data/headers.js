@@ -1,12 +1,6 @@
-import { Form } from '../Components/form.js';
-import { Title } from '../Components/title.js';
-import { Checkbox } from '../Components/checkbox.js';
-import { Label } from '../Components/label.js';
-import { Button } from '../Components/button.js';
-
 export const FinalHeaderList = {
   headers: [],
-  keptHeaderOutput: document.getElementById('headers-to-keep'),
+  keptHeaderOutput: document.getElementById('headersToKeep'),
   changeFinalHeadersList(header) {
     !this.headers.includes(header)
       ? this.headers.push(header)
@@ -14,7 +8,7 @@ export const FinalHeaderList = {
     return this.headers.join(', ');
   },
   changeHeadersToKeepMessage(checkbox) {
-    this.keptHeaderOutput.innerHTML = checkbox.checked
+    document.getElementById('headersToKeep').innerHTML = checkbox.checked
       ? `Headers to keep: <strong> ${this.changeFinalHeadersList(
           checkbox.value
         )}</strong>`
@@ -26,13 +20,4 @@ export const FinalHeaderList = {
     this.keptHeaderOutput.innerHTML =
       '<strong>Please choose headers to keep</strong>';
   },
-};
-
-export const displayHeadersArea = async (path, columns, header) => {
-  Form.add('headerOutput');
-  Title.add(Form.id);
-  Checkbox.add(Form.id, header);
-  Label.createForEachHeader(header);
-  Button.add(Form.id, path, columns, header, FinalHeaderList.headers);
-  FinalHeaderList.showMessage();
 };

@@ -22,23 +22,114 @@
     <title>Template Maker</title>
   </head>
   <body style="background-color: #121212; color: whitesmoke">
-    <h1 class="h1 text-center mt-5 mb-5">Create Item Template</h1>
-    <!-- Drag and drop -->
-    <div class="mx-auto mb-5 drop-area" id="drop-area">
-      <div class="file-input">
-        <p class="h6">Upload CSV file here to create the Item Template with.</p>
-        <button type="button" id="select-file" class="btn btn-secondary">
-          Select File
-        </button>
-      </div>
-      <div class="output-area">
-        <p id="output"></p>
-        <p id="headers-to-keep"></p>
-        <div class="form-group" id="newFilenameWrapper"></div>
+    <h1 class="h1 text-center mt-5 mb-5">Template Maker</h1>
+    <div class="info-wrapper">
+      <p>
+        To get started, please choose which template you would like to create
+      </p>
+      <div class="template-buttons">
+        <a
+          class="btn btn-secondary"
+          id="itemTemplateButton"
+          data-bs-toggle="modal"
+          data-bs-target="#itemTemplateModal"
+          >Item Template</a
+        >
+        <a
+          class="btn btn-secondary"
+          id="imageTemplateButton"
+          data-bs-toggle="modal"
+          data-bs-target="#imageTemplateModal"
+          >Image Template</a
+        >
       </div>
     </div>
-    <!-- Header output area -->
-    <div class="mx-auto form-check" id="headerOutput"></div>
+
+    <!-- Item Template Modal -->
+    <div
+      class="modal fade"
+      id="itemTemplateModal"
+      tabindex="-1"
+      aria-labelledby="itemTemplateModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div
+          class="modal-content"
+          style="background-color: #121212; color: whitesmoke"
+        >
+          <div class="modal-header">
+            <h5 class="modal-title" id="itemTemplateModalLabel">
+              Item Template Creator
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="itemTemplateModalBody"></div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              id="btnCreateItemTemplate"
+              class="btn btn-primary"
+            >
+              Create Item Template
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Image Template Modal -->
+    <div
+      class="modal fade"
+      id="imageTemplateModal"
+      tabindex="-1"
+      aria-labelledby="imageTemplateModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div
+          class="modal-content"
+          style="background-color: #121212; color: whitesmoke"
+        >
+          <div class="modal-header">
+            <h5 class="modal-title" id="imageTemplateModalLabel">
+              Image Template Creator
+            </h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="imageTemplateModalBody"></div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">
+              Create Image Template
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
   <script type="module" src="app.js"></script>
 </html>
