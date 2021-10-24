@@ -26,7 +26,7 @@ class Headers:
                 headers.append(word)
             else:
                 headers.append('')
-                
+
         return headers
 
     def populate(self, sheet: worksheet, headers: list) -> None:

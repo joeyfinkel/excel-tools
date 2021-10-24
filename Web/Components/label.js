@@ -1,27 +1,23 @@
 import { Checkbox } from './checkbox.js';
-import { Form } from './form.js';
 import { Div } from './div.js';
 
 export const Label = {
-  id: 'flexCheckDefault',
-  class: 'form-check-label',
-
+  /**
+   * Creates a new label
+   * @param {string} text Label's text
+   * @returns A new label element
+   */
   create(text) {
     const label = document.createElement('label');
-    label.id = this.id;
-    label.className = this.class;
+
+    label.id = 'flexCheckDefault';
+    label.className = 'form-check-label';
     label.setAttribute('for', Checkbox.id);
     label.innerHTML = text;
 
     return label;
   },
-  add(id, lblTxt) {
-    const element = document.getElementById(id);
-
-    element.appendChild(this.create(lblTxt));
-    element.appendChild(document.createElement('br'));
-  },
-  createForEachHeader(headers) {
+  renderHeaders(headers) {
     const headerLabelWrapper = Div.create(
       'headerLabelWrapper',
       'header-label-wrapper'

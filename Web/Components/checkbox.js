@@ -1,4 +1,4 @@
-import { FinalHeaderList } from '../Data/headers.js';
+import { Headers } from '../Utils/headers.js';
 
 export const Checkbox = {
   id: 'flexCheckDefault',
@@ -14,9 +14,8 @@ export const Checkbox = {
     checkbox.addEventListener(
       'click',
       () =>
-        FinalHeaderList.headers === 0
-          ? FinalHeaderList.showMessage()
-          : FinalHeaderList.changeHeadersToKeepMessage(checkbox),
+        (Headers.headers =
+          Headers.headers === 0 ? '' : Headers.finalHeaderList(checkbox.value)),
       false
     );
 

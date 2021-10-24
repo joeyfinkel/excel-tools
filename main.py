@@ -101,10 +101,11 @@ def final_data(file, data, original_headers, new_headers):
 
 @eel.expose
 def save_new_sheet(headers, columns, name):
+    head = [x for x in headers if x] # deletes the empty string for the list
     wb = Workbook()
-    header.populate(wb.active, headers)
+    header.populate(wb.active, head)
     column.populate(wb.active, columns)
     wb.save(f"{util.choose_download_location()}/{name}.xlsx")
 
 
-eel.start("index.html", size=(1024, 768))
+eel.start("index.html", size=(570, 730))

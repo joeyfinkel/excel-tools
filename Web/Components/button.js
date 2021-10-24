@@ -1,88 +1,53 @@
-import { TextBox } from './textBox.js';
-import { FileData } from '../Data/fileData.js';
+import { FileData } from '../Utils/fileData.js';
+import { Headers } from '../Utils/headers.js';
+import { RowData } from '../Utils/rows.js';
+import { Label } from './label.js';
+import { TextBoxWrapper } from './textBox.js';
 
-export const Button = {
-  create(className, id, text, type) {
-    const button = document.createElement('button');
-    button.className = className;
-    button.id = id;
-    button.textContent = text;
-    button.type = type;
+const itemTemplateUpload = document.getElementById('itemTemplateUpload');
 
-    return button;
+/**
+ * Houses all the buttons' actions on the DOM
+ */
+export const Buttons = {
+  selectCSVFile: {
+    /**
+     * The onClick function to allow file upload with a button
+     */
+    action() {
+      itemTemplateUpload.click();
+    },
   },
-};
+  itemTemplateUpload: {
+    /**
+     * Displays information on the sheet
+     * @param {*[]} sheetData Original data from sheet
+     * @param {Event} e Event from onclick
+     */
+    action(sheetData, e) {
+      const headers = FileData.getHeaders_Original(sheetData);
 
-export const UploadCSVButton = {
-  create(className, id, text, type) {
-    const button = document.createElement('button');
-    button.className = className;
-    button.id = id;
-    button.textContent = text;
-    button.type = type;
+      FileData.renderFileData('fileDataOutput', e, sheetData);
 
-    button.addEventListener(
-      'click',
-      async () => FileData.showSheetInformation(),
-      false
-    );
-    return button;
+      document
+        .getElementById('fileDataOutput')
+        .appendChild(Label.renderHeaders(headers));
+
+      TextBoxWrapper.add('fileDataOutput');
+    },
   },
-};
+  createItemTemplate: {
+    /**
+     * Modifies the original data to be used for creating the new sheet
+     * @param {*[]} sheetData Original data from the sheet
+     */
+    action(sheetData) {
+      console.log(sheetData);
+      console.log(RowData.getModifiedRows(sheetData));
 
-export const ImageUploadButton = {
-  create(className, id, text, type) {
-    const button = document.createElement('button');
-    button.className = className;
-    button.id = id;
-    button.textContent = text;
-    button.type = type;
-
-    button.addEventListener(
-      'click',
-      async () => {
-        console.log('ImageUploadButton');
-      },
-      false
-    );
-    return button;
-  },
-};
-
-export const IdUploadButton = {
-  create(className, id, text, type) {
-    const button = document.createElement('button');
-    button.className = className;
-    button.id = id;
-    button.textContent = text;
-    button.type = type;
-
-    button.addEventListener(
-      'click',
-      async () => {
-        console.log('IdUploadButton');
-      },
-      false
-    );
-    return button;
-  },
-};
-
-export const NewSheetButton = {
-  async createNewSheet(file, data, originalHeaders, newHeaders) {
-    const columnsByRow = await eel.get_columns_by_row(file, data)();
-    const finalHeaders = await eel.set_final_headers(
-      originalHeaders,
-      newHeaders
-    )();
-    const finalColumns = await eel.final_data(
-      file,
-      columnsByRow,
-      originalHeaders,
-      newHeaders
-    )();
-    const newFilename = TextBox.reference().value;
-
-    newFilename && eel.save_new_sheet(finalHeaders, finalColumns, newFilename);
+      // finalData.forEach((cell) => (finalData = rowToObj.createEachCell(cell)));
+      // finalData.forEach((cell) => console.log(rowToObj.createEachCell(cell)));
+      // console.log(finalData);
+    },
   },
 };
