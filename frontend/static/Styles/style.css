@@ -1,0 +1,43 @@
+/* Global styles */
+
+@import url(variables.css);
+
+body {
+  background-color: var(--bg-color-primary) !important;
+  color: var(--text-color-primary) !important;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.main-content {
+  width: calc(100vh - 250px);
+}
+
+.btn {
+  background-color: var(--btn-color-primary) !important;
+  color: var(--text-color-primary) !important;
+}
+
+.btn:hover {
+  background-color: var(--btn-color-hover) !important;
+  box-shadow: 1px 1px var(--btn-color-hover);
+}
+
+.sheet-display {
+  position: relative;
+  width: var(--container-width);
+  height: calc(var(--container-height) * 2);
+  background-color: var(--bg-color-secondary);
+  border-radius: var(--container-radius);
+  padding-top: 40px;
+}
+
+.btn-create-sheet {
+  position: absolute;
+  margin: 0px 20px 15px 0px;
+  bottom: 0;
+  right: 0;
+}
+

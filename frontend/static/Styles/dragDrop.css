@@ -1,0 +1,11 @@
+@import url(variables.css);
+
+.drag-drop-container {
+  width: var(--container-width);
+  height: var(--container-height);
+  background-color: var(--bg-color-secondary);
+  border-radius: var(--container-radius);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

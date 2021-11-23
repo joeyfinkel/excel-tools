@@ -4,7 +4,9 @@
     "asins",
     "itertools",
     "joeyf",
+    "preconnect",
     "rtype"
   ],
-  "git.ignoreLimitWarning": true
+  "git.ignoreLimitWarning": true,
+  "cmake.configureOnOpen": false
 }

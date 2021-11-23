@@ -1,8 +1,28 @@
 {
   "dependencies": {
     "exceljs": "^4.2.1",
+    "express": "^4.17.1",
+    "live-server": "^1.2.1",
     "read-excel-file": "^5.2.10",
+    "requirejs": "^2.3.6",
     "xlsx": "^0.17.2"
   },
-  "type": "module"
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "spreadhsheetmaker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joeyfinkel/SpreadhsheetMaker.git"
+  },
+  "author": "Joey Finkel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joeyfinkel/SpreadhsheetMaker/issues"
+  },
+  "homepage": "https://github.com/joeyfinkel/SpreadhsheetMaker#readme",
+  "description": ""
 }

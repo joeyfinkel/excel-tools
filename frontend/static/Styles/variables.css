@@ -1,0 +1,19 @@
+/* Variables */
+
+:root {
+  /* Buttons */
+  --btn-color-primary: #102a43;
+  --btn-color-hover: #0a2137;
+
+  /* Backgrounds */
+  --bg-color-primary: #1d2025 !important;
+  --bg-color-secondary: #486581;
+
+  /* Text */
+  --text-color-primary: #bcccdc;
+
+  /* Container */
+  --container-width: 35vw;
+  --container-height: 20vh;
+  --container-radius: 15px;
+}
