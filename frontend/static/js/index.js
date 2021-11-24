@@ -1,26 +1,28 @@
 // Views import
-import Main from './views/Main.js';
-import ItemTemplate from './views/ItemTemplate.js';
-import ImageTemplate from './views/ImageTemplate.js';
-import SheetMerger from './views/SheetMerger.js';
+import {
+  main,
+  itemTemplate,
+  imageTemplate,
+  sheetMerger,
+} from './views/views.js';
 
 const router = async () => {
   const routes = [
     {
       path: '/',
-      view: Main,
+      view: main(),
     },
     {
       path: '/itemTemplate',
-      view: ItemTemplate,
+      view: itemTemplate(),
     },
     {
       path: '/imageTemplate',
-      view: ImageTemplate,
+      view: imageTemplate(),
     },
     {
       path: '/sheetMerger',
-      view: SheetMerger,
+      view: sheetMerger(),
     },
   ];
 
@@ -29,10 +31,9 @@ const router = async () => {
   });
   let match = potentialMatches.find((potentialMatch) => potentialMatch.isMatch);
 
-  match = !match && { route: routes[0], isMatch: true };
+  if (!match) match = { route: routes[0], isMatch: true };
 
-  document.querySelector('#content').innerHTML =
-    await new match.route.view().getHtml();
+  document.querySelector('#content').innerHTML = await match.route.view;
 };
 
 const navigateTo = (url) => {
@@ -46,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.body.addEventListener('click', (e) => {
     if (e.target.matches('[data-link]')) {
       e.preventDefault();
-      console.log(e.target);
       navigateTo(e.target.href);
     }
   });

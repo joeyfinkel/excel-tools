@@ -1,6 +1,9 @@
 /* Variables */
 
 :root {
+  /* Navbar */
+  --navbar-width: 250px;
+
   /* Buttons */
   --btn-color-primary: #102a43;
   --btn-color-hover: #0a2137;

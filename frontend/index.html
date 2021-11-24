@@ -4,11 +4,12 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./static/Styles/variables.css" />
-    <link rel="stylesheet" href="./static/Styles/style.css" />
-    <link rel="stylesheet" href="./static/Styles/navbar.css" />
-    <link rel="stylesheet" href="./static/Styles/fileInputArea.css" />
-    <link rel="stylesheet" href="./static/Styles/headerOutputArea.css" />
+    <link rel="stylesheet" href="./static/styles/variables.css" />
+    <link rel="stylesheet" href="./static/styles/style.css" />
+    <link rel="stylesheet" href="./static/styles/components/navbar.css" />
+    <link rel="stylesheet" href="./static/styles/components/button.css" />
+    <link rel="stylesheet" href="./static/styles/components/dragDrop.css" />
+    <link rel="stylesheet" href="./static/styles/components/sheetDisplay.css" />
     <link
       rel="shortcut icon"
       href="./static/images/favicon.ico"
@@ -37,25 +38,47 @@
   </head>
   <body>
     <nav id="sidebar" class="navbar">
-      <div class="top">
-        <a href="/">
-          <img src="./static/images/Logo.png" alt="" />
+      <div class="top mx-auto">
+        <a href="/" class="mx-auto">
+          <img
+            class="mx-auto"
+            src="./static/images/Logo.png"
+            alt="Excel Tools"
+          />
         </a>
       </div>
-      <div class="buttons">
-        <a href="/itemTemplate" class="btn btn-nav" data-link>Item Template</a>
-        <a href="/imageTemplate" class="btn btn-nav" data-link
-          >Image Template</a
-        >
-        <a href="/sheetMerger" class="btn btn-nav" data-link>Sheet Merger</a>
+      <div class="nav-buttons">
+        <div class="nav-button-container">
+          <img
+            src="./static/images/navigation/Item Template.svg"
+            alt=""
+            class="nav-logo"
+          />
+          <a href="/itemTemplate" class="btn btn-nav" data-link>
+            Item Template</a
+          >
+        </div>
+        <div class="nav-button-container">
+          <img
+            src="./static/images/navigation/Image Template.svg"
+            alt=""
+            class="nav-logo"
+          />
+          <a href="/imageTemplate" class="btn btn-nav" data-link>
+            Image Template</a
+          >
+        </div>
+        <div class="nav-button-container">
+          <img
+            src="./static/images/navigation/Sheet Merger.svg"
+            alt=""
+            class="nav-logo"
+          />
+          <a href="/sheetMerger" class="btn btn-nav" data-link> Sheet Merger</a>
+        </div>
       </div>
     </nav>
-
-    <div id="content" class="content"></div>
-
-    <main class="main-content mx-auto">
-      <div class="title" id="title"></div>
-    </main>
+    <div id="content" class="content mx-auto"></div>
     <script type="module" src="./static/js/index.js"></script>
   </body>
   <!-- <script type="module" src="app.js"></script> -->

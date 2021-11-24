@@ -18,7 +18,7 @@ export const DragDrop = {
                 id=${fileInputId}
                 hidden
                />
-                <label for=${fileInputId} class='mx-auto h6'>${lblText}</label>
+                <label for=${fileInputId} class='text-center h6'>${lblText}</label>
             </form>`;
   },
   /**
@@ -42,9 +42,7 @@ export const DragDrop = {
         );
         const sheetInfoObj = arrayToObj(sheetInfo);
 
-        sheetInfoObj.map((info) =>
-          FileData.renderFileData(outputId, info)
-        );
+        sheetInfoObj.map((info) => FileData.renderFileData(outputId, info));
       },
       false
     );

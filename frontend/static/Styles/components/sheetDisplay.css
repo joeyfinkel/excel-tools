@@ -1,0 +1,31 @@
+@import url(../variables.css);
+
+.headers {
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: 0.2px solid;
+}
+
+.sheet-display {
+  position: relative;
+  width: var(--container-width);
+  height: calc(var(--container-height) * 2);
+  background-color: var(--bg-color-secondary);
+  border-radius: var(--container-radius);
+  padding-top: 40px;
+}
+
+.sheets > * {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  border-bottom: 0.2px solid;
+  margin-top: 15px;
+}
+
+.sheet-1 {
+  margin-left: 5px !important;
+}
