@@ -10,20 +10,19 @@ import { DragDrop } from './dragDrop.js';
  */
 export const pageBuilder = (templateType, { pageTitles, lblText, btnText }) => {
   const fileInputId = `${templateType}DragDrop`;
-  const centerStyle = 'mx-auto mt-4';
 
   return `
     <section id="${templateType}">
         <div class="title pt-2">${pageTitles}</div>
         <div
           id="dragDropContainer"
-          class="drag-drop-container ${centerStyle}"
+          class="drag-drop-container mx-auto mt-5"
         >
           ${DragDrop.create(fileInputId, lblText)}
         </div>
         <div
             id="${templateType}Display"
-            class="sheet-display ${centerStyle}"
+            class="sheet-display mx-auto mt-4"
         >
             <div class="headers">
                 <p className="h6 mx-auto">Sheet Name</p>
@@ -31,7 +30,7 @@ export const pageBuilder = (templateType, { pageTitles, lblText, btnText }) => {
                 <p className="h6 mx-auto">Rows</p>
             </div>
             <div id="${templateType}Sheets" class="sheets"></div>
-            <button class="btn btn-nav btn-create">Create ${btnText}</button>
+            <button class="btn btn-create">Create ${btnText}</button>
         </div>
     </section>
 `;

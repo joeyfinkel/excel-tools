@@ -25,15 +25,19 @@
   display: flex;
   justify-content: space-around;
   flex-direction: column;
-  padding-left: 40px;
 }
 
 .btn-nav {
-  margin-top: 30px !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: flex-start;
   padding: 8px !important;
+  width: var(--navbar-width);
+  border-radius: 0 !important;
 }
 
 .nav-logo {
   width: 40px;
   height: 40px;
+  margin-right: 15px;
 }

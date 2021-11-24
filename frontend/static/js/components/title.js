@@ -13,7 +13,7 @@ const subTitle = headingNumRef.subTitle;
  * @returns {string} The title component for each page
  */
 const create = (headingNum, text) => `
-    <h${headingNum} class='h${headingNum} text-center mt-5 mb-0'>
+    <h${headingNum} class='h${headingNum} text-center mt-4 mb-2'>
       <strong>${text}</strong>
     </h${headingNum}>`;
 
@@ -48,10 +48,21 @@ export const Titles = {
   },
   imageTemplate: {
     documentTitle: `${documentTitle} - Image Template Creator`,
-    headings: [create(main, 'Image Template')],
+    headings: [
+      create(main, 'Image Template'),
+      create(subTitle, 'Create any image template easily'),
+      create(5, `Start by uploading the file that contains the list of id's`),
+    ],
   },
   sheetMerger: {
     documentTitle: `${documentTitle} - Sheet Merger`,
-    headings: [create(main, 'Sheet Merger')],
+    headings: [
+      create(main, 'Sheet Merger'),
+      create(5, 'Easily merge multiple sheets together'),
+      create(
+        5,
+        'Start by uploading the sheets you want to merge together, then select the columns to merge'
+      ),
+    ],
   },
 };

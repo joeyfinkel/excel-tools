@@ -1,29 +1,23 @@
-// Views import
-import {
-  main,
-  itemTemplate,
-  imageTemplate,
-  sheetMerger,
-} from './views/views.js';
+import { views } from './views/views.js';
+
+const { main, itemTemplate, imageTemplate, sheetMerger } = views;
+
+/**
+ * Creates a new route object with a `path` and `view`
+ * @param {string} path The path to the view
+ * @param {string} view The specific view to display
+ * @returns {{path: string, view: string}} A new route object with the path and view
+ */
+const createRoute = (path, view) => {
+  return { path, view };
+};
 
 const router = async () => {
   const routes = [
-    {
-      path: '/',
-      view: main(),
-    },
-    {
-      path: '/itemTemplate',
-      view: itemTemplate(),
-    },
-    {
-      path: '/imageTemplate',
-      view: imageTemplate(),
-    },
-    {
-      path: '/sheetMerger',
-      view: sheetMerger(),
-    },
+    createRoute('/', main()),
+    createRoute('/itemTemplate', itemTemplate()),
+    createRoute('/imageTemplate', imageTemplate()),
+    createRoute('/sheetMerger', sheetMerger()),
   ];
 
   const potentialMatches = routes.map((route) => {
