@@ -11,6 +11,10 @@ body {
   font-family: 'Poppins', sans-serif !important;
 }
 
+a {
+  text-decoration: none;
+}
+
 .content {
   width: calc(100vh - 250px);
 }

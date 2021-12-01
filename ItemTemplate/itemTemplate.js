@@ -1,4 +1,4 @@
-import { navbar, checkPage } from '../Web/frontend/Components/navbar.js';
+import { navbar } from '../Web/frontend/Components/navbar.js';
 import { DragDrop } from '../Web/frontend/Components/dragDrop.js';
 import { Titles } from '../Web/frontend/Components/title.js';
 

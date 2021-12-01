@@ -1,40 +1,11 @@
-import { views } from './views/views.js';
+import { router, navigateTo } from './utils/router.js';
+import { onchange as dragDropOnChange } from './components/dragDrop.js';
 
-const { main, itemTemplate, imageTemplate, sheetMerger } = views;
+// This file contains all the event listeners for the application.
 
-/**
- * Creates a new route object with a `path` and `view`
- * @param {string} path The path to the view
- * @param {string} view The specific view to display
- * @returns {{path: string, view: string}} A new route object with the path and view
- */
-const createRoute = (path, view) => {
-  return { path, view };
-};
+const itemTemplateDragDrop = document.getElementById('itemTemplateDragDrop');
 
-const router = async () => {
-  const routes = [
-    createRoute('/', main()),
-    createRoute('/itemTemplate', itemTemplate()),
-    createRoute('/imageTemplate', imageTemplate()),
-    createRoute('/sheetMerger', sheetMerger()),
-  ];
-
-  const potentialMatches = routes.map((route) => {
-    return { route: route, isMatch: location.pathname === route.path };
-  });
-  let match = potentialMatches.find((potentialMatch) => potentialMatch.isMatch);
-
-  if (!match) match = { route: routes[0], isMatch: true };
-
-  document.querySelector('#content').innerHTML = await match.route.view;
-};
-
-const navigateTo = (url) => {
-  history.pushState(null, null, url);
-  router();
-};
-
+//#region Global event listeners
 window.addEventListener('popstate', router);
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -47,3 +18,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   router();
 });
+
+window.addEventListener('load', () => dragDropOnChange('item-template'), false);

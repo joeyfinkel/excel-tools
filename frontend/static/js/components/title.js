@@ -13,7 +13,9 @@ const subTitle = headingNumRef.subTitle;
  * @returns {string} The title component for each page
  */
 const create = (headingNum, text) => `
-    <h${headingNum} class='h${headingNum} text-center mt-4 mb-2'>
+    <h${headingNum}
+      class='h${headingNum} text-center mt-4 mb-2'
+    >
       <strong>${text}</strong>
     </h${headingNum}>`;
 

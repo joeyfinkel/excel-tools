@@ -91,29 +91,6 @@ export const FileData = {
     return sheetData;
   },
   /**
-   * Outputs the sheet data in the specified tag.
-   * @param {string} id String that specifies the ID of where to output the sheet information.
-   * @param {Array<string|number>} sheet Sheet information.
-   */
-  renderFileData(id, sheet) {
-    const sheetName = sheet.sheetName;
-    document.getElementById(id).innerHTML += `
-      <div class="sheet-info" id="${sheetName}">
-        <p class='h6 mx-auto sheet-1'>
-          <input
-            type="checkbox"
-            name="sheetCheckbox"
-            id="${sheetName}-check"
-            class="sheet-check"
-          />
-          <label for="${sheetName}-check">${sheetName}</label>
-        </p>
-        <p class='h6 mx-auto'>${sheet.columns}</p>
-        <p class='h6 mx-auto'>${sheet.rows}</p>
-      </div>
-    `;
-  },
-  /**
    * Creates a list of all the data from the sheet
    * @param {*[][]} data Data from uploaded sheet
    * @returns {*[]} A list of all the data from the sheet
