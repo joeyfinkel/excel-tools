@@ -1,9 +1,3 @@
-import { FileData } from '../Utils/fileData.js';
-import { Headers } from '../Utils/headers.js';
-import { Rows } from '../Utils/rows.js.js';
-import { Label } from './label.js';
-import { TextBoxWrapper } from './textBox.js';
-
 /**
  * Houses all the buttons' actions on the DOM
  */
@@ -74,3 +68,9 @@ import { TextBoxWrapper } from './textBox.js';
 //     },
 //   },
 // };
+
+export const createNewSheet = (name) => {
+  const createSheet = document.getElementById('createSheet');
+
+  createSheet && createSheet.addEventListener('click', () => console.log(name));
+};

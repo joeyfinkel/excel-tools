@@ -111,3 +111,12 @@ export const FileData = {
     return cell;
   },
 };
+
+export const getFile = (templateType) => {
+  const template = document.getElementById(`${templateType}DragDrop`);
+
+  return new Promise((resolve, reject) => {
+    template &&
+      template.addEventListener('change', (e) => resolve(e.target.files[0]));
+  });
+};

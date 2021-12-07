@@ -1,3 +1,5 @@
+import { createCheckbox } from './checkbox.js';
+
 /**
  * Creates the component to show the name of the columns.
  * @param {string[]} columns List of columns of the selected sheet from the uploaded spreadsheet.
@@ -5,22 +7,17 @@
  * @param {string} title The title for component.
  * @returns {string} The HTML for the component.
  */
-export const columnNamesView = (columns, templateType, title) => {
+export const headersView = (columns, templateType, title) => {
   /**
-   * Loops over all the columns of the selected sheet and creates a div with a checkbox for each columns name.
-   * @returns {string[]} A div with a checkbox and a label for each column in the sheet.
+   * Creates a checkbox and displays every header from the selected sheet.
+   * @returns {string[]} A div with a checkbox and a label for each header in the sheet.
    */
-  const showColumnNames = () =>
+  const getHeaders = () =>
     columns
       .map(
-        (column) => `
+        (header) => `
         <div class="column-names">
-            <input
-                type="checkbox"
-                name="${column}"
-                id="${column}"
-            />
-            <label for="${column}">${column}</label>
+          ${createCheckbox(header)}
         </div>`
       )
       .join(' ');
@@ -34,7 +31,7 @@ export const columnNamesView = (columns, templateType, title) => {
           <strong>${title}</strong>
         </div>
         <div class="column-names-wrapper ms-5 py-3">
-          ${showColumnNames()}
+          ${getHeaders()}
           </div>
           <div class="ms-5 new-sheet-name-wrapper">
             <input
@@ -46,6 +43,7 @@ export const columnNamesView = (columns, templateType, title) => {
           </div>
         <button
           type="submit"
+          id="createSheet"
           class="btn btn-create"
         >Create Sheet</button>
     </div>
