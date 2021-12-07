@@ -80,10 +80,14 @@ export const FileData = {
     let columns = 0;
 
     for (const sheet of sheetNames) {
+      /**
+       * Read each sheet's data
+       */
       const data = await readXlsxFile(file, {
         sheet,
       });
 
+      saveToLocalStorage(sheet, data);
       data.forEach((row) => (columns = row.length));
       sheetData.push([sheet, columns, data.length]);
     }
@@ -112,11 +116,22 @@ export const FileData = {
   },
 };
 
-export const getFile = (templateType) => {
-  const template = document.getElementById(`${templateType}DragDrop`);
-
-  return new Promise((resolve, reject) => {
-    template &&
-      template.addEventListener('change', (e) => resolve(e.target.files[0]));
+/**
+ * Gets the file from the upload.
+ * @param {Event} e File upload event.
+ * @returns {Promise<string>} The file uploaded.
+ */
+export const getFile = (e) =>
+  new Promise((resolve, reject) => {
+    resolve(e.target.files[0]);
+    reject(new Error('No file found'));
   });
+
+/**
+ * Saves the file uploaded in local storage so it can be accessed later.
+ * @param {string} key Name for local storage object.
+ * @param {any} obj The file uploaded.
+ */
+export const saveToLocalStorage = (key, obj) => {
+  localStorage.setItem(key, JSON.stringify(obj, null, 2));
 };

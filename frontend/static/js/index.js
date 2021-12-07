@@ -1,6 +1,6 @@
 import { router, navigateTo } from './utils/router.js';
-import { showSheetInformation } from './components/dragDrop.js';
-import { getFile } from './utils/fileData.js';
+import { dragDropOnchange } from './components/dragDrop.js';
+import { radioOnclick } from './components/radio.js';
 
 // This file contains all the event listeners for the application.
 
@@ -24,10 +24,8 @@ window.addEventListener(
   'load',
   async () => {
     const template = 'item-template';
-    const file = await getFile(template);
-    const sheetView = await showSheetInformation(template, file);
-    console.log(file);
-    document.getElementById(template).innerHTML += sheetView;
+    dragDropOnchange(template);
+    radioOnclick(template);
   },
   false
 );

@@ -25,7 +25,7 @@ export const sheetView = (templateType, sheetData) => {
     `;
   };
 
-  return Promise.resolve(`
+  return `
     <div
         id="${templateType}Display"
         class="sheet-display mx-auto mt-4"
@@ -40,5 +40,5 @@ export const sheetView = (templateType, sheetData) => {
         </div>
         ${createNextButton()}
     </div>
-    `);
+    `;
 };

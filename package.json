@@ -5,7 +5,7 @@
     "live-server": "^1.2.1",
     "read-excel-file": "^5.2.10",
     "requirejs": "^2.3.6",
-    "xlsx": "^0.17.2"
+    "xlsx": "^0.17.4"
   },
   "type": "module",
   "scripts": {

@@ -20,21 +20,28 @@ export const createRadio = (name) => `
  * @param {Event} file The file that was uploaded.
  * @param {string} templateType The type of template/page
  */
-export const selectSheet = (file, templateType) => {
+export const selectSheet = async (file, templateType, selectedSheet) => {
+  // Read the data from the selected sheet
+  const readFile = await readXlsxFile(file, { sheet: selectedSheet });
+  const headers = await readFile[0];
+
+  return new Promise.resolve(
+    showSheetHeaders(templateType, selectedSheet, headers)
+  );
+};
+
+export const radioOnclick = (templateType) => {
   const radios = document.querySelectorAll('.sheet-radio');
 
-  radios &&
-    radios.forEach((radio) =>
-      radio.addEventListener(
-        'change',
-        async () => {
-          // Read the data from the selected sheet
-          const readFile = await readXlsxFile(file, { sheet: radio.id });
-          const headers = await readFile[0];
-
-          showSheetHeaders(templateType, radio.id, headers);
-        },
-        false
-      )
-    );
+  return new Promise(
+    (resolve, reject) =>
+      radios &&
+      radios.forEach(async (radio) => {
+        const sheetInfo = localStorage.getItem(radio.id);
+        console.log(sheetInfo);
+        // const readFile = await readXlsxFile(file, { sheet: radio.id });
+        // const headers = await readFile[0];
+        resolve(showSheetHeaders(templateType, radio.id, headers));
+      })
+  );
 };
