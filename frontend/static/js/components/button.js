@@ -1,76 +1,32 @@
+import { dataAttributes } from '../utils/dataAttributes.js';
+
 /**
- * Houses all the buttons' actions on the DOM
+ * Creates the button used for creating a new sheet.
+ * @returns {string} The HTML for the button to create a new sheet.
  */
-// export const Buttons = {
-//   /**
-//    * Allows the user to upload files with a button instead of the input type file
-//    * @param {HTMLElement} button Id of the file upload
-//    * @param {HTMLElement} fileUploadId Id of the file upload
-//    */
-//   selectFile(button, fileUploadId) {
-//     button.addEventListener('click', () => fileUploadId.click(), false);
-//   },
-//   itemTemplate: {
-//     /**
-//      * Displays information on the sheet
-//      * @param {HTMLElement} fileUploadId Id of the file upload
-//      * @param {Event} e Event from onclick
-//      */
-//     upload(fileUploadId) {
-//       fileUploadId &&
-//         fileUploadId.addEventListener(
-//           'change',
-//           async (e) =>
-//             FileData.getSheets(fileUploadId.files[0]).then((rows) => {
-//               const headers = FileData.getHeaders_Original(rows);
+export const button = () => `
+  <button
+    id="createSheet"
+    class="btn btn-create"
+    ${dataAttributes.createNewSheet}
+  >Create Sheet</button>
+`;
 
-//               FileData.renderFileData('fileDataOutput', e, rows);
+export const createNewSheetEvent = async (activeSheet) => {
+  const dataFromStorage = JSON.parse(localStorage.getItem(activeSheet));
+  const transformedData = [];
+  // #TODO #2 Remove the non selected headers from `dataFromStorage` by index
 
-//               document
-//                 .getElementById('fileDataOutput')
-//                 .appendChild(Label.renderHeaders(headers));
-
-//               TextBoxWrapper.add('fileDataOutput');
-//             }),
-//           false
-//         );
-//     },
-//     /**
-//      * Modifies the original data to be used for creating the new sheet
-//      * @param {HTMLElement} fileUploadId Id of file upload
-//      * @param {string} btnId Id of button to write data to new sheet
-//      */
-//     create(fileUploadId, btnId) {
-//       document.getElementById(btnId).addEventListener(
-//         'click',
-//         async () => {
-//           const create = Rows.create;
-//           const sheetData = await readXlsxFile(fileUploadId.files[0]);
-//           const modifiedData = Rows.modify.remove(
-//             sheetData[0],
-//             FileData.getListOfData(sheetData)
-//           );
-//           const cell = create.cell(modifiedData);
-//           const cellObj = create.cellObj(cell);
-//           const rowWithCells = create.rowWithCells(
-//             cellObj,
-//             Headers.headers.length
-//           );
-
-//           console.log(modifiedData)
-
-//           await writeXlsxFile(rowWithCells, {
-//             fileName: document.getElementById('txtNewFilename').value,
-//           });
-//         },
-//         false
-//       );
-//     },
-//   },
-// };
-
-export const createNewSheet = (name) => {
-  const createSheet = document.getElementById('createSheet');
-
-  createSheet && createSheet.addEventListener('click', () => console.log(name));
+  /**
+   * Takes each cell in the row and turns it into an object.
+   * @param {any[]} row Each row from {@link dataFromStorage}.
+   * @returns {Array.<Array.<{value: string|number}>>} Each cell in the row as an object in the row array.
+   */
+  const transformData = (row) =>
+    row.map((value) => {
+      return { value };
+    });
+  
+  dataFromStorage.forEach((el) => transformedData.push(transformData(el)));
+  await writeXlsxFile(transformedData, { fileName: 'Item Template.xlsx' });
 };

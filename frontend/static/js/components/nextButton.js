@@ -1,41 +1,28 @@
 import { headersView } from './headersView.js';
-import { selectHeaders } from './checkbox.js';
+import { hide, showNextComponent } from '../utils/utils.js';
+import { dataAttributes } from '../utils/dataAttributes.js';
 
 /**
  * Creates the next button to move on to the next view for creating the template sheet.
  * @returns {string} A font awesome icon of a right arrow.
  */
 export const createNextButton = () =>
-  `<i id="showColumnNames" class="fas fa-arrow-right fa-lg"></i>`;
+  `<i
+    id="showColumnNames"
+    class="fas fa-arrow-right fa-lg"
+    ${dataAttributes.nextButton}
+  ></i>`;
 
 /**
- * The onclick event handler for the right arrow. Hides the sheet name component and
- * shows the column name component with the columns from the selected sheet.
- * Implemented in `radio.js`.
- * @param {string} templateType The name of the current template.
- * @param {string} selectedSheet The name of the sheet the user selected.
- * @param {string[]} columns The headers from the selected sheet.
+ * Checks if next button is clicked on and shows the headers from the selected sheet.
+ * @param {string} templateType Type of template the event is for.
+ * @param {string} activeSheet The selected sheet.
  */
-export const showSheetHeaders = (templateType, selectedSheet, columns) => {
-  const showColumnNames = document.getElementById('showColumnNames');
+export const nextButtonEvent = (templateType, activeSheet) => {
+  const data = JSON.parse(localStorage.getItem(activeSheet));
 
-  showColumnNames &&
-    showColumnNames.addEventListener(
-      'click',
-      () => {
-        // Hide sheet name view
-        document.getElementById(`${templateType}Display`).style.display =
-          'none';
-
-        // Show column name view, display column name
-        document.getElementById(templateType).innerHTML += headersView(
-          columns,
-          templateType,
-          `Columns From ${selectedSheet}`
-        );
-
-        selectHeaders();
-      },
-      false
-    );
+  hide(`${templateType}Display`);
+  showNextComponent(
+    headersView(data[0], templateType, `Headers From ${activeSheet}`)
+  );
 };

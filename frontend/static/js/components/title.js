@@ -12,12 +12,13 @@ const subTitle = headingNumRef.subTitle;
  * @param  {string} text Text for the titles
  * @returns {string} The title component for each page
  */
-const create = (headingNum, text) => `
-    <h${headingNum}
-      class='h${headingNum} text-center mt-4 mb-2'
-    >
-      <strong>${text}</strong>
-    </h${headingNum}>`;
+const createHeading = (headingNum, text) => `
+  <h${headingNum}
+    class='h${headingNum} text-center mt-4 mb-2'
+  >
+    <strong>${text}</strong>
+  </h${headingNum}>
+`;
 
 /**
  * Maps the list of titles in a `div`
@@ -33,16 +34,16 @@ export const Titles = {
   main: {
     documentTitle,
     headings: [
-      create(main, 'Excel Tools'),
-      create(subTitle, 'Create templates or merge sheets together'),
+      createHeading(main, 'Excel Tools'),
+      createHeading(subTitle, 'Create templates or merge sheets together'),
     ],
   },
   itemTemplate: {
     documentTitle: `${documentTitle} - Item Template Creator`,
     headings: [
-      create(main, 'Item Template Creator'),
-      create(subTitle, 'Create any item template easily!'),
-      create(
+      createHeading(main, 'Item Template Creator'),
+      createHeading(subTitle, 'Create any item template easily!'),
+      createHeading(
         subTitle,
         'Start here by uploading a CSV or XLSX file to get started'
       ),
@@ -51,17 +52,20 @@ export const Titles = {
   imageTemplate: {
     documentTitle: `${documentTitle} - Image Template Creator`,
     headings: [
-      create(main, 'Image Template'),
-      create(subTitle, 'Create any image template easily'),
-      create(5, `Start by uploading the file that contains the list of id's`),
+      createHeading(main, 'Image Template'),
+      createHeading(subTitle, 'Create any image template easily'),
+      createHeading(
+        5,
+        `Start by uploading the file that contains the list of id's`
+      ),
     ],
   },
   sheetMerger: {
     documentTitle: `${documentTitle} - Sheet Merger`,
     headings: [
-      create(main, 'Sheet Merger'),
-      create(5, 'Easily merge multiple sheets together'),
-      create(
+      createHeading(main, 'Sheet Merger'),
+      createHeading(5, 'Easily merge multiple sheets together'),
+      createHeading(
         5,
         'Start by uploading the sheets you want to merge together, then select the columns to merge'
       ),

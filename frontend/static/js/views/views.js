@@ -3,9 +3,18 @@ import { abstractView } from './abstractView.js';
 import { templateMainSection } from '../components/templateMainSection.js';
 import { dragDrop } from '../components/dragDrop.js';
 
-/**
- * Object containing all the different views for the application.
- */
+const createView = (docTitle, templateType, headings, lblText) => {
+  const fileInputId = `${templateType}DragDrop`;
+  document.title = docTitle;
+
+  return `
+    <section id=${templateType}>
+      ${templateMainSection(map(headings), dragDrop(fileInputId, lblText))}
+    </section>
+  `;
+};
+
+/** Object containing all the different views for the application. */
 export const views = {
   /**
    * Creates the `main` view.
@@ -24,20 +33,13 @@ export const views = {
    * Creates the `item template` view.
    * @returns {string} The HTML for the `item template` view.
    */
-  itemTemplate: async () => {
-    const template = 'item-template';
-    const fileInputId = `${template}DragDrop`;
-    const pageTitles = Titles.itemTemplate.headings;
-    const lblText = `Drag file here or click to <strong>browse</strong> for one.`;
-
-    document.title = Titles.itemTemplate.documentTitle;
-
-    return `
-      <section id="${template}">
-        ${templateMainSection(pageTitles, dragDrop(fileInputId, lblText))}
-      </section>
-    `;
-  },
+  itemTemplate: async () =>
+    createView(
+      Titles.itemTemplate.documentTitle,
+      'item-template',
+      Titles.itemTemplate.headings,
+      `Drag file here or click to <strong>browse</strong> for one.`
+    ),
   /**
    * Creates the `image template` view.
    * @returns {string} The HTML for the `image template` view.

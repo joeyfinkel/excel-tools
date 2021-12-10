@@ -1,4 +1,6 @@
-import { createNewSheet } from './button.js';
+import { dataAttributes } from '../utils/dataAttributes.js';
+
+const boxAttr = dataAttributes.checkbox;
 
 /**
  * Creates a checkbox with a unique Id and name.
@@ -8,47 +10,28 @@ import { createNewSheet } from './button.js';
 export const createCheckbox = (name) => `
   <input
     type="checkbox"
-    name="${name}"
+    name="${boxAttr}"
     id="${name}"
+    ${boxAttr}
   />
   <label for="${name}">${name}</label>
 `;
 
 /**
- * Adds an event listener to every checkbox on the page. Used for selecting the columns
- * for the new sheet. Implemented in `nextButton.js`.
+ * Checks if the selected header is in the list of headers.
+ * Adds the header to `headersList` if it's not there already.
+ * If the `selectedHeader` is in `headersList`, it will be removed.
+ * @returns {Promise.<string[]>} An array with the headers the user selected.
  */
-export const selectHeaders = () => {
-  const checkboxes = document.querySelectorAll('input[type=checkbox]');
-  const name = [];
+export const comparedHeaders = () => {
+  const checkbox = document.querySelector(`input[name='${boxAttr}']`);
+  /** @type {string[]} */
+  const headers = [];
 
-  /**
-   * Checks if the selected header is in the list of headers.
-   * Adds the header to `headersList` if it's not there already.
-   * If the `selectedHeader` is in `headersList`, it will be removed.
-   * @param {string} selectedHeader The header selected onclick.
-   * @returns {string[]} An array with the headers the user selected.
-   */
-  const compareHeaders = (selectedHeader) => {
-    const headersList = [];
+  document.body.addEventListener('change', async (e) => {
+    if (e.target.matches(`[${boxAttr}]`))
+      if (checkbox.checked) headers.push(e.target.id);
+  });
 
-    // Adds selectedHeader to headerList if it's not currently in the list.
-    headersList.includes(selectedHeader)
-      ? headersList.splice(headersList.indexOf(selectedHeader, 1))
-      : headersList.push(selectedHeader);
-
-    return headersList;
-  };
-
-  checkboxes &&
-    checkboxes.forEach((checkbox) =>
-      checkbox.addEventListener(
-        'click',
-        () => {
-          name.push(checkbox.name);
-          createNewSheet(name);
-        },
-        false
-      )
-    );
+  return new Promise((resolve, reject) => resolve(headers));
 };

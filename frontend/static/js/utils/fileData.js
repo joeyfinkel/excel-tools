@@ -12,7 +12,7 @@ export const FileData = {
   },
   /**
    * Gets all sheet names from current XLSX file.
-   * @param {Promise} sheets The file uploaded.
+   * @param {string{}} sheets The file uploaded.
    * @returns {string[]} A list of all sheet names.
    */
   getSheets(sheets) {
@@ -121,11 +121,13 @@ export const FileData = {
  * @param {Event} e File upload event.
  * @returns {Promise<string>} The file uploaded.
  */
-export const getFile = (e) =>
-  new Promise((resolve, reject) => {
-    resolve(e.target.files[0]);
-    reject(new Error('No file found'));
-  });
+// export const getFile = (e) =>
+//   new Promise((resolve, reject) => {
+//     resolve(e.target.files[0]);
+//     reject(new Error('No file found'));
+//   });
+
+export const getFile = (e) => e.target.files[0];
 
 /**
  * Saves the file uploaded in local storage so it can be accessed later.

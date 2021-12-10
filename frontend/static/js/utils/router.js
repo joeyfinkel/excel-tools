@@ -1,7 +1,5 @@
 import { views } from '../views/views.js';
 
-const { main, itemTemplate, imageTemplate, sheetMerger } = views;
-
 /**
  * Creates a new route object with a `path` and `view`.
  * @param {string} path The path to the view.
@@ -12,10 +10,9 @@ const createRoute = (path, view) => {
   return { path, view };
 };
 
-/**
- * Creates and deals with the routing logic.
- */
+/** Creates and deals with the routing logic. */
 export const router = async () => {
+  const { main, itemTemplate, imageTemplate, sheetMerger } = views;
   const routes = [
     createRoute('/', main()),
     createRoute('/item-template', itemTemplate()),

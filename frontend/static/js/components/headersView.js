@@ -1,3 +1,4 @@
+import { button } from './button.js';
 import { createCheckbox } from './checkbox.js';
 
 /**
@@ -27,25 +28,13 @@ export const headersView = (columns, templateType, title) => {
       id="${templateType}ColumnsView"
       class="sheet-display mx-auto mt-4"
     >
-        <div class="h2 ms-4">
-          <strong>${title}</strong>
+      <div class="h2 ms-4">
+        <strong>${title}</strong>
+      </div>
+      <div class="column-names-wrapper ms-5 py-3">
+        ${getHeaders()}
         </div>
-        <div class="column-names-wrapper ms-5 py-3">
-          ${getHeaders()}
-          </div>
-          <div class="ms-5 new-sheet-name-wrapper">
-            <input
-              type="text"
-              name="New Sheet Name"
-              placeholder="Enter new filename here..."
-              id="newSheetName"
-            />
-          </div>
-        <button
-          type="submit"
-          id="createSheet"
-          class="btn btn-create"
-        >Create Sheet</button>
+      ${button()}
     </div>
   `;
 };
