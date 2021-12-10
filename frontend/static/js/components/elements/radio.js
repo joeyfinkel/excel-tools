@@ -1,4 +1,4 @@
-import { dataAttributes } from '../utils/dataAttributes.js';
+import { dataAttributes } from '../../utils/utils.js';
 
 /**
  * Creates an input radio element with a label.

@@ -1,5 +1,5 @@
-import { createRadio } from './radio.js';
-import { createNextButton } from './nextButton.js';
+import { createRadio } from '../elements/radio.js';
+import { createNextButton } from '../elements/buttons/next.js';
 
 /**
  * Creates the sheet view component. Displays all the sheet names, columns, and rows

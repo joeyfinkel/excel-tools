@@ -1,8 +1,15 @@
-import { map, Titles } from '../components/title.js';
-import { abstractView } from './abstractView.js';
-import { templateMainSection } from '../components/templateMainSection.js';
-import { dragDrop } from '../components/dragDrop.js';
+import { map, Titles } from '../components/elements/title.js';
+import { templateMainSection } from '../components/built/templateMainSection.js';
+import { dragDrop } from '../components/built/dragDrop.js';
 
+/**
+ * Creates a section with the id of `templateType` with the page contents.
+ * @param {string} docTitle The title for the document.
+ * @param {string} templateType Type of template to create.
+ * @param {string[]} headings Array of headings to display on the page.
+ * @param {string} lblText Text to display on the drag and drop component.
+ * @returns {string} The HTML for the specified template.
+ */
 const createView = (docTitle, templateType, headings, lblText) => {
   const fileInputId = `${templateType}DragDrop`;
   document.title = docTitle;
@@ -45,19 +52,21 @@ export const views = {
    * @returns {string} The HTML for the `image template` view.
    */
   imageTemplate: async () =>
-    abstractView('imageTemplate', Titles.imageTemplate.documentTitle, {
-      headings: Titles.imageTemplate.headings,
-      lblText: `Drag file here or click to <strong>browse</strong> for one.`,
-      btnText: 'Image Template',
-    }),
+    createView(
+      Titles.imageTemplate.documentTitle,
+      'image-template',
+      Titles.imageTemplate.headings,
+      `Drag file here or click to <strong>browse</strong> for one.`
+    ),
   /**
    * Creates the `sheet merger` view.
    * @returns {string} The HTML for the `sheet merger` view.
    */
   sheetMerger: async () =>
-    abstractView('sheetMerger', Titles.sheetMerger.documentTitle, {
-      headings: Titles.sheetMerger.headings,
-      lblText: `Drag file here or click to <strong>browse</strong> for one.`,
-      btnText: 'Merged Sheet',
-    }),
+    createView(
+      Titles.sheetMerger.documentTitle,
+      'sheet-merger',
+      Titles.sheetMerger.headings,
+      `Drag file here or click to <strong>browse</strong> for one.`
+    ),
 };

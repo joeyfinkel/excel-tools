@@ -1,5 +1,5 @@
-import { button } from './button.js';
-import { createCheckbox } from './checkbox.js';
+import { createSheetButton } from '../elements/buttons/createSheet.js';
+import { createCheckbox } from '../elements/checkbox.js';
 
 /**
  * Creates the component to show the name of the columns.
@@ -34,7 +34,7 @@ export const headersView = (columns, templateType, title) => {
       <div class="column-names-wrapper ms-5 py-3">
         ${getHeaders()}
         </div>
-      ${button()}
+      ${createSheetButton()}
     </div>
   `;
 };

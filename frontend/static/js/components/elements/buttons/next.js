@@ -1,6 +1,9 @@
-import { headersView } from './headersView.js';
-import { hide, showNextComponent } from '../utils/utils.js';
-import { dataAttributes } from '../utils/dataAttributes.js';
+import { headersView } from '../../built/headersView.js';
+import {
+  hide,
+  showNextComponent,
+  dataAttributes,
+} from '../../../utils/utils.js';
 
 /**
  * Creates the next button to move on to the next view for creating the template sheet.

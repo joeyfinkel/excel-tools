@@ -1,7 +1,6 @@
 import { sheetView } from './sheetView.js';
-import { FileData } from '../utils/fileData.js';
-import { hide, showNextComponent } from '../utils/utils.js';
-import { dataAttributes } from '../utils/dataAttributes.js';
+import { FileData } from '../../utils/fileData.js';
+import { hide, showNextComponent, dataAttributes } from '../../utils/utils.js';
 /**
  * Creates the drag and drop component.
  * @param {string} fileInputId Id for the file input element.
