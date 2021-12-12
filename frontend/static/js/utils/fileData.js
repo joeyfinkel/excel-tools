@@ -87,7 +87,10 @@ export const FileData = {
         sheet,
       });
 
+      // Save sheet data to local storage
       saveToLocalStorage(sheet, data);
+      // Save sheet names to local storage
+      saveToLocalStorage('sheets', sheetNames)
       data.forEach((row) => (columns = row.length));
       sheetData.push([sheet, columns, data.length]);
     }

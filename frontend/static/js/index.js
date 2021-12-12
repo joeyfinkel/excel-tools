@@ -4,11 +4,20 @@ import { nextButtonEvent } from './components/elements/buttons/next.js';
 import { dataAttributes } from './utils/utils.js';
 import { comparedHeaders } from './components/elements/checkbox.js';
 import { createNewSheetEvent } from './components/elements/buttons/createSheet.js';
+import { backButtonEvent } from './components/elements/buttons/back.js';
 
 // This file contains all the event listeners for the application.
 
-const { navButton, dragDrop, radio, nextButton, checkbox, createNewSheet } =
-  dataAttributes;
+const {
+  navButton,
+  dragDrop,
+  radio,
+  nextButton,
+  backButton,
+  checkbox,
+  createNewSheet,
+} = dataAttributes;
+
 const template = 'item-template';
 let activeSheet = '';
 let headers = [];
@@ -35,6 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.target.matches(`[${checkbox}]`)) headers = await comparedHeaders();
     if (e.target.matches(`[${createNewSheet}]`))
       await createNewSheetEvent(activeSheet);
+    if (e.target.matches(`[${backButton}]`))
+      backButtonEvent(
+        template,
+        `Drag file here or click to <strong>browse</strong> for one.`
+      );
   });
 
   router();

@@ -1,3 +1,4 @@
+import { createBackButton } from '../elements/buttons/back.js';
 import { createSheetButton } from '../elements/buttons/createSheet.js';
 import { createCheckbox } from '../elements/checkbox.js';
 
@@ -28,6 +29,7 @@ export const headersView = (columns, templateType, title) => {
       id="${templateType}ColumnsView"
       class="sheet-display mx-auto mt-4"
     >
+      ${createBackButton()}
       <div class="h2 ms-4">
         <strong>${title}</strong>
       </div>

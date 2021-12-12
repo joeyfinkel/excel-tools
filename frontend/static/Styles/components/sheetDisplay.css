@@ -50,10 +50,6 @@
   right: 0;
 }
 
-#showColumnNames:hover {
-  cursor: pointer;
-}
-
 .column-names {
   display: flex;
   align-content: center;

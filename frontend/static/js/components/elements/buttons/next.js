@@ -4,10 +4,11 @@ import {
   showNextComponent,
   dataAttributes,
 } from '../../../utils/utils.js';
+import * as types from '../../../utils/types.js';
 
 /**
  * Creates the next button to move on to the next view for creating the template sheet.
- * @returns {string} A font awesome icon of a right arrow.
+ * @returns {types.ITag} A font awesome icon of a right arrow.
  */
 export const createNextButton = () =>
   `<i

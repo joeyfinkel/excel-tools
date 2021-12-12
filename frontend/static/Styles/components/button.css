@@ -16,3 +16,8 @@
   bottom: 0;
   right: 0;
 }
+
+#showColumnNames:hover,
+#previousView:hover {
+  cursor: pointer;
+}
