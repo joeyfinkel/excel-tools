@@ -1,3 +1,9 @@
+import {
+  saveRowsAndColumns,
+  saveSheetNames,
+  saveSheetInformation,
+} from './utils.js';
+
 /**
  * Houses all the functions to get data from the sheet that was uploaded
  */
@@ -80,20 +86,18 @@ export const FileData = {
     let columns = 0;
 
     for (const sheet of sheetNames) {
-      /**
-       * Read each sheet's data
-       */
+      /** Read each sheet's data */
       const data = await readXlsxFile(file, {
         sheet,
       });
 
-      // Save sheet data to local storage
-      saveToLocalStorage(sheet, data);
-      // Save sheet names to local storage
-      saveToLocalStorage('sheets', sheetNames)
+      saveRowsAndColumns(sheet, data);
+      saveSheetNames(sheetNames);
       data.forEach((row) => (columns = row.length));
       sheetData.push([sheet, columns, data.length]);
     }
+
+    saveSheetInformation(sheetData);
 
     return sheetData;
   },
@@ -117,26 +121,4 @@ export const FileData = {
 
     return cell;
   },
-};
-
-/**
- * Gets the file from the upload.
- * @param {Event} e File upload event.
- * @returns {Promise<string>} The file uploaded.
- */
-// export const getFile = (e) =>
-//   new Promise((resolve, reject) => {
-//     resolve(e.target.files[0]);
-//     reject(new Error('No file found'));
-//   });
-
-export const getFile = (e) => e.target.files[0];
-
-/**
- * Saves the file uploaded in local storage so it can be accessed later.
- * @param {string} key Name for local storage object.
- * @param {any} obj The file uploaded.
- */
-export const saveToLocalStorage = (key, obj) => {
-  localStorage.setItem(key, JSON.stringify(obj, null, 2));
 };

@@ -1,7 +1,7 @@
 import { router, navigateTo } from './utils/router.js';
 import { dragDropOnchange } from './components/built/dragDrop.js';
 import { nextButtonEvent } from './components/elements/buttons/next.js';
-import { dataAttributes } from './utils/utils.js';
+import { dataAttributes, getActiveComponent } from './utils/utils.js';
 import { comparedHeaders } from './components/elements/checkbox.js';
 import { createNewSheetEvent } from './components/elements/buttons/createSheet.js';
 import { backButtonEvent } from './components/elements/buttons/back.js';

@@ -1,6 +1,10 @@
 import { sheetView } from './sheetView.js';
 import { FileData } from '../../utils/fileData.js';
-import { hide, showNextComponent, dataAttributes } from '../../utils/utils.js';
+import {
+  removeElementById,
+  showComponent,
+  dataAttributes,
+} from '../../utils/utils.js';
 /**
  * Creates the drag and drop component.
  * @param {string} fileInputId Id for the file input element.
@@ -52,8 +56,9 @@ export const dragDropOnchange = (templateType) => {
       file
     );
 
-    hide('dragDropContainer');
-    showNextComponent(sheetView(templateType, sheetData));
+    console.log(sheetData);
+    removeElementById('dragDropContainer');
+    showComponent(sheetView(templateType, sheetData));
   };
 
   // Check if the drag and drop component exists and add an on change event.

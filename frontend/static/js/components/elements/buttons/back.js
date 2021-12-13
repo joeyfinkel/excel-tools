@@ -1,7 +1,8 @@
 import {
   dataAttributes,
-  hide,
-  showNextComponent,
+  getActiveComponent,
+  removeElementById,
+  showComponent,
 } from '../../../utils/utils.js';
 import { dragDrop } from '../../built/dragDrop.js';
 import { sheetView } from '../../built/sheetView.js';
@@ -25,23 +26,17 @@ export const createBackButton = () => `
  * @param {string} lblText Text for the drag and drop component.
  */
 export const backButtonEvent = (templateType, lblText) => {
-  const backButton = document.getElementById('previousView');
-
-  switch (templateType) {
-    case `${templateType}Display`:
-      backButton.classList.add('active');
-      hide(`${templateType}Display`);
-      showNextComponent(dragDrop(`${templateType}DragDrop`, lblText));
-      break;
-    case `${templateType}ColumnsView`:
-      backButton.classList.add('active');
-      hide(`${templateType}ColumnsView`);
-      showNextComponent(
-        sheetView(templateType, JSON.parse(localStorage.getItem('sheets')))
-      );
-      break;
-    default:
-      backButton.classList.remove('active');
-      break;
+  if (getActiveComponent(templateType) === 'headersView') {
+    // Remove headers view
+    removeElementById(`${templateType}ColumnsView`);
+    // Show sheets view
+    showComponent(
+      sheetView(templateType, JSON.parse(localStorage.getItem('sheetsInfo')))
+    );
+  } else {
+    // Remove sheets view
+    removeElementById(`${templateType}Display`);
+    // Show drag and drop
+    showComponent(dragDrop(`${templateType}DragDrop`, lblText));
   }
 };

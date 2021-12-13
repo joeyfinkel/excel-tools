@@ -1,7 +1,7 @@
 import { headersView } from '../../built/headersView.js';
 import {
-  hide,
-  showNextComponent,
+  removeElementById,
+  showComponent,
   dataAttributes,
 } from '../../../utils/utils.js';
 import * as types from '../../../utils/types.js';
@@ -23,10 +23,10 @@ export const createNextButton = () =>
  * @param {string} activeSheet The selected sheet.
  */
 export const nextButtonEvent = (templateType, activeSheet) => {
-  const data = JSON.parse(localStorage.getItem(activeSheet));
+  const data = JSON.parse(localStorage.getItem(`${activeSheet}RowsAndColumns`));
 
-  hide(`${templateType}Display`);
-  showNextComponent(
+  removeElementById(`${templateType}Display`);
+  showComponent(
     headersView(data[0], templateType, `Headers From ${activeSheet}`)
   );
 };
