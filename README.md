@@ -16,7 +16,7 @@
 
 ---
 
-<p align="center"> Few lines describing your project.
+<p align="center"> Easily manipulate or create Excel files.
     <br>
 </p>
 
@@ -32,10 +32,11 @@
 ## 🧐 About <a name = "about"></a>
 
 Tools to make spreadsheet manipulation easier. <br />
-Column remover - remove columns from a spreadsheet and create a spreadsheet with only the columns you need. <br />
-Item template creator - create an item template by letting the program remove the columns that aren't needed automatically. <br />
-Image template creator - create an image template by uploading images and a spreadsheet to associate images with each UPC/SKU. <br />
-Column merger - merge columns together from the same spreadsheet or multiple spreadsheets.
+Included tools: <br />
+&ensp;Column remover - remove columns from a spreadsheet and create a spreadsheet with only the columns you need. <br />
+&ensp;Item template creator - create an item template by letting the program remove the columns that aren't needed automatically. <br />
+&ensp;Image template creator - create an image template by uploading images and a spreadsheet to associate images with each UPC/SKU. <br />
+&ensp;Column merger - merge columns together from the same spreadsheet or multiple spreadsheets.
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
@@ -78,6 +79,8 @@ Add additional notes about how to deploy this on a live system.
 ## ⛏️ Built Using <a name = "built_using"></a>
 
 - [NodeJs](https://nodejs.org/en/) - Server Environment
+- [read-excel-file](https://www.npmjs.com/package/read-excel-file) - Reading Excel files
+- [write-excel-file](https://www.npmjs.com/package/write-excel-file) - Writing to new Excel files
 
 ## ✍️ Authors <a name = "authors"></a>
 
