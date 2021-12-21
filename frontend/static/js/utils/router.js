@@ -1,4 +1,8 @@
-import { views } from '../views/views.js';
+import { mainView } from '../views/main.js';
+import { columnRemoverView } from '../views/columnRemover.js';
+import { itemTemplateView } from '../views/itemTemplate.js';
+import { imageTemplateView } from '../views/imageTemplate.js';
+import { sheetMergerView } from '../views/sheetMerger.js';
 
 /**
  * Creates a new route object with a `path` and `view`.
@@ -12,14 +16,12 @@ const createRoute = (path, view) => {
 
 /** Creates and deals with the routing logic. */
 export const router = async () => {
-  const { main, columnRemover, itemTemplate, imageTemplate, sheetMerger } =
-    views;
   const routes = [
-    createRoute('/', main()),
-    createRoute('/column-remover', columnRemover()),
-    createRoute('/item-template', itemTemplate()),
-    createRoute('/image-template', imageTemplate()),
-    createRoute('/sheet-merger', sheetMerger()),
+    createRoute('/', mainView()),
+    createRoute('/column-remover', columnRemoverView()),
+    createRoute('/item-template', itemTemplateView()),
+    createRoute('/image-template', imageTemplateView()),
+    createRoute('/sheet-merger', sheetMergerView()),
   ];
 
   const potentialMatches = routes.map((route) => {

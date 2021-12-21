@@ -62,7 +62,7 @@ export const sheetView = (templateType, sheetNames) => {
  * Handles all the events for the sheet view component.
  * @param {{type: string, title: string, headings: string[]}} templateType The template the event is for.
  */
-export const sheetViewEvents = (templateType) => {
+export const sheetsViewEvents = (templateType) => {
   document.body.addEventListener('click', (e) => {
     if (e.target.matches(`[${dataAttributes.radio}]`))
       activeSheet.push(e.target.id);

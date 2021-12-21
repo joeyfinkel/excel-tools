@@ -1,16 +1,15 @@
 import { templateMainSection } from '../components/built/templateMainSection.js';
-import { dragDrop } from '../components/built/dragDrop.js';
-import { templateTypes, componentIds, lblText } from '../utils/text.js';
-
-const { main, columnRemover, itemTemplate, imageTemplate, sheetMerger } =
-  templateTypes;
+import { dragDrop, dragDropEvent } from '../components/built/dragDrop.js';
+import { componentIds, lblText, dataAttributes } from '../utils/text.js';
+import { sheetsViewEvents } from '../components/built/sheetView.js';
+import { headersViewEvents } from '../components/built/headersView.js';
 
 /**
  * Creates a section with the id of `templateType` with the page contents.
  * @param {{type: string, title: string, headings: string[]}} templateType Type of template to create.
  * @returns {string} The HTML for the specified template.
  */
-const createView = (templateType) => {
+export const createView = (templateType) => {
   document.title = templateType.title;
 
   return `
@@ -23,39 +22,30 @@ const createView = (templateType) => {
   `;
 };
 
-/** Object containing all the different views for the application. */
-export const views = {
-  /**
-   * Creates the `main` view.
-   * @returns {string} The HTML for the `main` view.
-   */
-  main: async () => {
-    document.title = main.title;
+/**
+ * Adds {@link dragDropEvent}, {@link sheetsViewEvents}, and {@link headersViewEvents} to the specified template.
+ * @param {{type: string, title: string, headings: string[]}} templateType The type of template to call the events for.
+ */
+export const callEvents = (templateType) => {
+  /** If a nav button is clicked, the page won't reload and you will be redirected to that page. */
+  const navButtonEvent = () => {
+    document.body.addEventListener('click', (e) => {
+      if (e.target.matches(`[${dataAttributes.buttons.navButton}]`)) {
+        e.preventDefault();
+        navigateTo(e.target.href);
+      }
+    });
+  };
 
-    return `
-      <section class="home">
-          ${main.headings.map((headings) => headings).join('')}
-      </section>
-    `;
-  },
-  /**
-   * Creates the `column remover` view.
-   * @returns {string} The HTML for the `column remover` view.
-   */
-  columnRemover: async () => createView(columnRemover),
-  /**
-   * Creates the `item template` view.
-   * @returns {string} The HTML for the `item template` view.
-   */
-  itemTemplate: async () => createView(itemTemplate),
-  /**
-   * Creates the `image template` view.
-   * @returns {string} The HTML for the `image template` view.
-   */
-  imageTemplate: async () => createView(imageTemplate),
-  /**
-   * Creates the `sheet merger` view.
-   * @returns {string} The HTML for the `sheet merger` view.
-   */
-  sheetMerger: async () => createView(sheetMerger),
+  // Adds events for every component for every page
+  for (const template in templateType) {
+    const type = templateType[template].type;
+
+    if (window.location.href.includes(type)) {
+      navButtonEvent();
+      dragDropEvent(templateType);
+      sheetsViewEvents(templateType);
+      headersViewEvents(templateType, lblText);
+    }
+  }
 };
