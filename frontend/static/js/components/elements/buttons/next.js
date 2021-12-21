@@ -1,9 +1,10 @@
 import { headersView } from '../../built/headersView.js';
 import {
   removeElementById,
+  saveRowsAndColumns,
   showComponent,
-  dataAttributes,
 } from '../../../utils/utils.js';
+import { componentIds, dataAttributes } from '../../../utils/text.js';
 import * as types from '../../../utils/types.js';
 
 /**
@@ -14,7 +15,7 @@ export const createNextButton = () =>
   `<i
     id="showColumnNames"
     class="fas fa-arrow-right fa-lg"
-    ${dataAttributes.nextButton}
+    ${dataAttributes.buttons.nextButton}
   ></i>`;
 
 /**
@@ -23,9 +24,15 @@ export const createNextButton = () =>
  * @param {string} activeSheet The selected sheet.
  */
 export const nextButtonEvent = (templateType, activeSheet) => {
-  const data = JSON.parse(localStorage.getItem(`${activeSheet}RowsAndColumns`));
+  const key = `${activeSheet}-RowsAndColumns`;
+  const activeSheetInfo = localStorage.getItem(key);
+  const data = JSON.parse(activeSheetInfo);
 
-  removeElementById(`${templateType}Display`);
+  removeElementById(componentIds.sheetsView.container(templateType));
+
+  // Creates a copy of the selected sheet data to be manipulated.
+  saveRowsAndColumns(`Copy-${activeSheet}`, data);
+
   showComponent(
     headersView(data[0], templateType, `Headers From ${activeSheet}`)
   );

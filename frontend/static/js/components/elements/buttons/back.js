@@ -1,5 +1,4 @@
 import {
-  dataAttributes,
   getActiveComponent,
   removeElementById,
   showComponent,
@@ -7,6 +6,7 @@ import {
 import { dragDrop } from '../../built/dragDrop.js';
 import { sheetView } from '../../built/sheetView.js';
 import * as types from '../../../utils/types.js';
+import { componentIds, dataAttributes } from '../../../utils/text.js';
 
 /**
  * Creates the back button to go to back to the previous view.
@@ -16,7 +16,7 @@ export const createBackButton = () => `
   <i
     id="previousView"
     class="fas fa-arrow-left fa-lg"
-    ${dataAttributes.backButton}
+    ${dataAttributes.buttons.backButton}
   ></i>
 `;
 
@@ -26,17 +26,22 @@ export const createBackButton = () => `
  * @param {string} lblText Text for the drag and drop component.
  */
 export const backButtonEvent = (templateType, lblText) => {
+  const {
+    sheetsView: { container },
+    headersView: { id },
+  } = componentIds;
+
   if (getActiveComponent(templateType) === 'headersView') {
     // Remove headers view
-    removeElementById(`${templateType}ColumnsView`);
+    removeElementById(id(templateType));
     // Show sheets view
     showComponent(
       sheetView(templateType, JSON.parse(localStorage.getItem('sheetsInfo')))
     );
   } else {
     // Remove sheets view
-    removeElementById(`${templateType}Display`);
+    removeElementById(container(templateType));
     // Show drag and drop
-    showComponent(dragDrop(`${templateType}DragDrop`, lblText));
+    showComponent(dragDrop(templateType, lblText));
   }
 };

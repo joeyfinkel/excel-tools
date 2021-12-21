@@ -1,43 +1,41 @@
 import { sheetView } from './sheetView.js';
-import { FileData } from '../../utils/fileData.js';
-import {
-  removeElementById,
-  showComponent,
-  dataAttributes,
-} from '../../utils/utils.js';
+import { getSheetData } from '../../utils/fileData.js';
+import { removeElementById, showComponent } from '../../utils/utils.js';
+import { dataAttributes, componentIds } from '../../utils/text.js';
+
 /**
  * Creates the drag and drop component.
- * @param {string} fileInputId Id for the file input element.
+ * @param {string} templateType The template the component is being used for.
  * @param {string} lblText The text to display.
  * @returns {string} HTML component for the file input.
  */
-export const dragDrop = (fileInputId, lblText) => `
-  <div
-    id="dragDropContainer"
-    class="drag-drop-container mx-auto mt-5"
-    data-drag-drop
-  >
-    <form action="" class='mx-auto'>
-      <input
-        type="file"
-        name=${fileInputId}
-        id=${fileInputId}
+export const dragDrop = (templateType, lblText) => {
+  const childId = componentIds.dragDrop.children(templateType);
+
+  return `
+    <div
+      id='${componentIds.dragDrop.main}'
+      class='drag-drop-container mx-auto mt-5'
+    >
+      <form class='mx-auto'>
+        <input
+        type='file'
+        name=${childId}
+        id=${childId}
         hidden
         ${dataAttributes.dragDrop}
         />
-        <label for=${fileInputId} class='text-center h6' data-lbl>${lblText}</label>
-    </form>
-  </div>
-`;
+        <label for=${childId} class='text-center h6'>${lblText}</label>
+      </form>
+    </div>
+  `;
+};
 
 /**
- * If the drag and drop component exists on the page, an on change event is added
- * to get the file name and show the `sheetView` component.
- * @param {string} templateType Name of the template.
+ * Adds an event to the drag and drop component to read the data from the uploaded file and move to the next component.
+ * @param {{type: string, title: string, headings: string[]}} templateType Type of template the event is being used for.
  */
-export const dragDropOnchange = (templateType) => {
-  const dragDropContainer = document.getElementById('dragDropContainer');
-
+export const dragDropEvent = (templateType) => {
   /**
    * Reads the uploaded XLSX file and gets information on each sheet.
    * @param {Event} file The XLSX file that was uploaded.
@@ -51,19 +49,24 @@ export const dragDropOnchange = (templateType) => {
     const sheets = await readXlsxFile(file, {
       getSheets: true,
     });
-    const sheetData = await FileData.getSheetData(
-      FileData.getSheets(sheets),
-      file
-    );
+    const sheetData = await getSheetData(sheets, file);
 
-    console.log(sheetData);
     removeElementById('dragDropContainer');
-    showComponent(sheetView(templateType, sheetData));
+    showComponent(sheetView(templateType.type, sheetData));
   };
 
-  // Check if the drag and drop component exists and add an on change event.
-  dragDropContainer &&
-    dragDropContainer.addEventListener('change', async (e) =>
-      showSheetInformation(e.target.files[0])
-    );
+  /** Adds an on change event to the drag and drop component. */
+  const onChange = () => {
+    const dragDropContainer = document.getElementById('dragDropContainer');
+
+    // Check if the drag and drop component exists and add an on change event.
+    dragDropContainer &&
+      dragDropContainer.addEventListener('change', async (e) =>
+        showSheetInformation(e.target.files[0])
+      );
+  };
+
+  document.body.addEventListener('click', (e) => {
+    if (e.target.matches(`[${dataAttributes.dragDrop}]`)) onChange();
+  });
 };

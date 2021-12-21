@@ -1,11 +1,13 @@
 @import url(../variables.css);
 
 .headers {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   flex-direction: row;
   align-content: space-between;
   justify-content: space-around;
   align-items: center;
+  line-height: 0.5 !important;
   border-bottom: 0.2px solid;
 }
 
@@ -18,36 +20,26 @@
   padding-top: 40px;
 }
 
-.sheets > * {
-  display: flex;
-  justify-content: center;
-  justify-items: center;
+.sheet-info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  flex-direction: row;
+  align-content: space-between;
+  justify-content: space-around;
   border-bottom: 0.2px solid;
   margin-top: 15px;
 }
 
 .form-check {
-  display: flex !important;
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr);
+  flex-direction: row;
+  align-content: space-between;
+  justify-content: space-around;
 }
 
 .sheet-1 {
   margin-left: 5px !important;
-}
-
-.fa-arrow-right {
-  width: 25px;
-  height: 25px;
-  position: absolute;
-  margin: 0px 20px 15px 0px;
-  bottom: 0;
-  right: 0;
-}
-
-.btn-create {
-  position: absolute;
-  margin: 0px 20px 15px 0px;
-  bottom: 0;
-  right: 0;
 }
 
 .column-names {
@@ -58,12 +50,4 @@
   gap: 0.5rem;
   flex-wrap: wrap;
   flex-direction: row;
-}
-
-.new-sheet-name-wrapper {
-  margin-top: 5rem;
-}
-
-#newSheetName {
-  width: 230px;
 }

@@ -1,13 +1,4 @@
-/** Object containing all data attributes.  */
-export const dataAttributes = {
-  navButton: 'data-link',
-  dragDrop: 'data-file-input',
-  radio: 'data-sheet-radio',
-  nextButton: 'data-next-button',
-  backButton: 'data-back-button',
-  checkbox: 'data-header-checkbox',
-  createNewSheet: 'data-create-sheet',
-};
+import { componentIds } from './text.js';
 
 /**
  * Removes an element from the DOM.
@@ -29,10 +20,10 @@ export const showComponent = (component) => {
  * @param {string} templateType The page it is being implemented on.
  * @returns {string} The name of the current component.
  */
-export const getActiveComponent = (templateType) => {
-  const templateDisplay = document.getElementById(`${templateType}Display`);
-  return templateDisplay ? 'sheetsView' : 'headersView';
-};
+export const getActiveComponent = (templateType) =>
+  document.getElementById(componentIds.sheetsView.container(templateType))
+    ? 'sheetsView'
+    : 'headersView';
 
 /**
  * The basic function to save to local storage.
@@ -50,7 +41,7 @@ const saveToLocalStorage = (key, obj) => {
  * @param {any} obj Data from the file uploaded.
  */
 export const saveRowsAndColumns = (key, obj) => {
-  saveToLocalStorage(`${key}RowsAndColumns`, obj);
+  saveToLocalStorage(`${key}-RowsAndColumns`, obj);
 };
 
 /**
@@ -68,4 +59,13 @@ export const saveSheetNames = (obj) => {
  */
 export const saveSheetInformation = (obj) => {
   saveToLocalStorage(`sheetsInfo`, obj);
+};
+
+export const clearSheetInformation = (activeSheet) => {
+  for (var i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+
+    if (key !== `${activeSheet}-RowsAndColumns`)
+      localStorage.removeItem(localStorage.key(i));
+  }
 };

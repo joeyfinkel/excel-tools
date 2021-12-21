@@ -12,9 +12,11 @@ const createRoute = (path, view) => {
 
 /** Creates and deals with the routing logic. */
 export const router = async () => {
-  const { main, itemTemplate, imageTemplate, sheetMerger } = views;
+  const { main, columnRemover, itemTemplate, imageTemplate, sheetMerger } =
+    views;
   const routes = [
     createRoute('/', main()),
+    createRoute('/column-remover', columnRemover()),
     createRoute('/item-template', itemTemplate()),
     createRoute('/image-template', imageTemplate()),
     createRoute('/sheet-merger', sheetMerger()),
@@ -23,6 +25,7 @@ export const router = async () => {
   const potentialMatches = routes.map((route) => {
     return { route: route, isMatch: location.pathname === route.path };
   });
+
   let match = potentialMatches.find((potentialMatch) => potentialMatch.isMatch);
 
   if (!match) match = { route: routes[0], isMatch: true };
