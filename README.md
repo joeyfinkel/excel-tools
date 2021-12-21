@@ -27,17 +27,14 @@
 - [Deployment](#deployment)
 - [Usage](#usage)
 - [Built Using](#built_using)
-- [TODO](../TODO.md)
-- [Contributing](../CONTRIBUTING.md)
 - [Authors](#authors)
-- [Acknowledgments](#acknowledgement)
 
 ## 🧐 About <a name = "about"></a>
 
-Tools to make spreadsheet manipulation easier.
-Column remover - remove columns from a spreadsheet and create a spreadsheet with only the columns you need.
-Item template creator - create an item template by letting the program remove the columns that aren't needed automatically.
-Image template creator - create an image template by uploading images and a spreadsheet to associate images with each UPC/SKU.
+Tools to make spreadsheet manipulation easier. <br />
+Column remover - remove columns from a spreadsheet and create a spreadsheet with only the columns you need. <br />
+Item template creator - create an item template by letting the program remove the columns that aren't needed automatically. <br />
+Image template creator - create an image template by uploading images and a spreadsheet to associate images with each UPC/SKU. <br />
 Column merger - merge columns together from the same spreadsheet or multiple spreadsheets.
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
@@ -70,26 +67,6 @@ until finished
 
 End with an example of getting some data out of the system or using it for a little demo.
 
-## 🔧 Running the tests <a name = "tests"></a>
-
-Explain how to run the automated tests for this system.
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
 ## 🎈 Usage <a name="usage"></a>
 
 Add notes about how to use the system.
@@ -100,19 +77,8 @@ Add additional notes about how to deploy this on a live system.
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
-- [MongoDB](https://www.mongodb.com/) - Database
-- [Express](https://expressjs.com/) - Server Framework
-- [VueJs](https://vuejs.org/) - Web Framework
 - [NodeJs](https://nodejs.org/en/) - Server Environment
 
 ## ✍️ Authors <a name = "authors"></a>
 
-- [@kylelobo](https://github.com/kylelobo) - Idea & Initial work
-
-See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors) who participated in this project.
-
-## 🎉 Acknowledgements <a name = "acknowledgement"></a>
-
-- Hat tip to anyone whose code was used
-- Inspiration
-- References
+- [@joeyfinkel](https://github.com/joeyfinkel) - Idea & Initial work
