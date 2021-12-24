@@ -72,6 +72,7 @@ export const createNewSheetEvent = async (activeSheet, templateType) => {
 
       insertColumnAt(newData, newData[0].indexOf('UPC'), 0);
       insertColumnAt(newData, newData[0].indexOf('SKU'), 1);
+      // #TODO Figure out best way to implement column mover for all columns.
       console.log(newData);
 
       newData.forEach((row) => transformedData.push(transformData(row)));
