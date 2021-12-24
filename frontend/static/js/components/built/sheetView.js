@@ -1,24 +1,22 @@
 import { createRadio } from '../elements/radio.js';
 import { createNextButton, nextButtonEvent } from '../elements/buttons/next.js';
+import { createSheetButton } from '../elements/buttons/createSheet.js';
 import { backButtonEvent, createBackButton } from '../elements/buttons/back.js';
 import { componentIds, dataAttributes, lblText } from '../../utils/text.js';
 import * as types from '../../utils/types.js';
 
-/**
- * The selected sheet.
- * @type {string[]}
- */
+/** @type {string[]} The selected sheet. */
 export const activeSheet = [];
-
 /**
  * Creates the sheet view component. Displays all the sheet names, columns, and rows
  * of the uploaded spreadsheet.
- * @param {string} templateType Type of template.
- * @param {string[]} sheetNames Array of all the sheets names from the uploaded spreadsheet.
+ * @param {{type: string, title: string, headings: string[]}} templateType Type of template the event is being used for.
+ * @param {[string, number, number]} sheetNames Array of all the sheets names from the uploaded spreadsheet.
  * @returns {types.sheetViewComponent} The HTML for the sheet view component.
  */
-export const sheetView = (templateType, sheetNames) => {
+export const sheetsView = (templateType, sheetNames) => {
   const { container, sheetsWrapper } = componentIds.sheetsView;
+  const { type } = templateType;
 
   /**
    * Creates the HTML for displaying sheet information.
@@ -37,23 +35,30 @@ export const sheetView = (templateType, sheetNames) => {
     `;
   };
 
+  /**
+   * Creates the headings for the component.
+   * @returns {string} A HTML paragraph for element in the list to create the headings.
+   */
+  const createHeadings = () =>
+    ['Sheet Name', 'Column', 'Rows']
+      .map((el) => `<p class='h6 mx-auto'>${el}</p>`)
+      .join(' ');
+
   return `
     <div
-      id='${container(templateType)}'
+      id='${container(type)}'
       class='sheet-display mx-auto mt-4'
     >
       ${createBackButton()}
       <div class='mt-4'>
-          <div class='headers'>
-              <p class='h6 mx-auto'>Sheet Name</p>
-              <p class='h6 mx-auto'>Columns</p>
-              <p class='h6 mx-auto'>Rows</p>
-          </div>
-          <div id='${sheetsWrapper(templateType)}' class='sheets'>
-              ${sheetNames.map((sheet) => showSheetInformation(sheet)).join('')}
-          </div>
+        <div class='headers'>
+          ${createHeadings()}
+        </div>
+        <div id='${sheetsWrapper(type)}' class='sheets'>
+          ${sheetNames.map((sheet) => showSheetInformation(sheet)).join('')}
+        </div>
       </div>
-      ${createNextButton()}
+      ${type === 'item-template' ? createSheetButton() : createNextButton()}
     </div>
   `;
 };
@@ -68,9 +73,18 @@ export const sheetsViewEvents = (templateType) => {
       activeSheet.push(e.target.id);
 
     if (e.target.matches(`[${dataAttributes.buttons.nextButton}]`))
-      nextButtonEvent(templateType.type, activeSheet[0]);
+      nextButtonEvent(templateType, activeSheet[0]);
 
     if (e.target.matches(`[${dataAttributes.buttons.backButton}]`))
-      backButtonEvent(templateType.type, lblText);
+      backButtonEvent(templateType, lblText);
   });
 };
+
+/**
+ * Gets the id of the sheets view for the current template.
+ * @param {string} templateType The type of template the headers view is
+ * currently used for.
+ * @returns {string} The id of the sheets view.
+ */
+export const getSheetsViewId = (templateType) =>
+  `${templateType}SheetsContainer`;

@@ -4,7 +4,7 @@ import {
   showComponent,
 } from '../../../utils/utils.js';
 import { dragDrop } from '../../built/dragDrop.js';
-import { sheetView } from '../../built/sheetView.js';
+import { sheetsView } from '../../built/sheetView.js';
 import * as types from '../../../utils/types.js';
 import { componentIds, dataAttributes } from '../../../utils/text.js';
 
@@ -22,7 +22,7 @@ export const createBackButton = () => `
 
 /**
  * The logic for the back button.
- * @param {string} templateType Name of template.
+ * @param {{type: string, title: string, headings: string[]}} templateType Type of template the event is being used for.
  * @param {string} lblText Text for the drag and drop component.
  */
 export const backButtonEvent = (templateType, lblText) => {
@@ -30,18 +30,19 @@ export const backButtonEvent = (templateType, lblText) => {
     sheetsView: { container },
     headersView: { id },
   } = componentIds;
+  const { type } = templateType;
 
-  if (getActiveComponent(templateType) === 'headersView') {
+  if (getActiveComponent(type) === 'headersView') {
     // Remove headers view
-    removeElementById(id(templateType));
+    removeElementById(id(type));
     // Show sheets view
     showComponent(
-      sheetView(templateType, JSON.parse(localStorage.getItem('sheetsInfo')))
+      sheetsView(templateType, JSON.parse(localStorage.getItem('sheetsInfo')))
     );
   } else {
     // Remove sheets view
-    removeElementById(container(templateType));
+    removeElementById(container(type));
     // Show drag and drop
-    showComponent(dragDrop(templateType, lblText));
+    showComponent(dragDrop(type, lblText));
   }
 };

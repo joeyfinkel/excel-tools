@@ -10,7 +10,7 @@ import { activeSheet } from './sheetView.js';
 /**
  * Creates the component to show the name of the columns.
  * @param {string[]} columns List of columns of the selected sheet from the uploaded spreadsheet.
- * @param {string} templateType The name of the template. Used for the Id of the component.
+ * @param {{type: string, title: string, headings: string[]}} templateType Type of template the event is being used for.
  * @param {string} title The title for component.
  * @returns {string} The HTML for the component.
  */
@@ -31,7 +31,7 @@ export const headersView = (columns, templateType, title) => {
 
   return `
     <div
-      id="${componentIds.headersView.id(templateType)}"
+      id="${componentIds.headersView.id(templateType.type)}"
       class="sheet-display mx-auto mt-4"
     >
       ${createBackButton()}
@@ -63,3 +63,11 @@ export const headersViewEvents = (templateType, lblText) => {
       await createNewSheetEvent(activeSheet[0], templateType, lblText);
   });
 };
+
+/**
+ * Gets the id of the headers view for the current template.
+ * @param {string} templateType The type of template the headers view is
+ * currently used for.
+ * @returns {string} The id of the headers view.
+ */
+export const getHeadersViewId = templateType => `${templateType}HeadersView`

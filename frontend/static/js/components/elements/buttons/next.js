@@ -16,19 +16,21 @@ export const createNextButton = () =>
     id="showColumnNames"
     class="fas fa-arrow-right fa-lg"
     ${dataAttributes.buttons.nextButton}
-  ></i>`;
+  ></i>
+`;
 
 /**
  * Checks if next button is clicked on and shows the headers from the selected sheet.
- * @param {string} templateType Type of template the event is for.
+ * @param {{type: string, title: string, headings: string[]}} templateType Type of template the event is being used for.
  * @param {string} activeSheet The selected sheet.
  */
 export const nextButtonEvent = (templateType, activeSheet) => {
   const key = `${activeSheet}-RowsAndColumns`;
   const activeSheetInfo = localStorage.getItem(key);
   const data = JSON.parse(activeSheetInfo);
+  const id = componentIds.sheetsView.container(templateType.type);
 
-  removeElementById(componentIds.sheetsView.container(templateType));
+  removeElementById(id);
 
   // Creates a copy of the selected sheet data to be manipulated.
   saveRowsAndColumns(`Copy-${activeSheet}`, data);

@@ -1,4 +1,4 @@
-import { sheetView } from './sheetView.js';
+import { sheetsView } from './sheetView.js';
 import { getSheetData } from '../../utils/fileData.js';
 import { removeElementById, showComponent } from '../../utils/utils.js';
 import { dataAttributes, componentIds } from '../../utils/text.js';
@@ -52,7 +52,7 @@ export const dragDropEvent = (templateType) => {
     const sheetData = await getSheetData(sheets, file);
 
     removeElementById('dragDropContainer');
-    showComponent(sheetView(templateType.type, sheetData));
+    showComponent(sheetsView(templateType, sheetData));
   };
 
   /** Adds an on change event to the drag and drop component. */

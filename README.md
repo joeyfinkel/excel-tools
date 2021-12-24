@@ -33,10 +33,11 @@
 
 Tools to make spreadsheet manipulation easier. <br />
 Included tools: <br />
-&ensp;Column remover - remove columns from a spreadsheet and create a spreadsheet with only the columns you need. <br />
-&ensp;Item template creator - create an item template by letting the program remove the columns that aren't needed automatically. <br />
-&ensp;Image template creator - create an image template by uploading images and a spreadsheet to associate images with each UPC/SKU. <br />
-&ensp;Column merger - merge columns together from the same spreadsheet or multiple spreadsheets.
+
+- Column remover - remove columns from a spreadsheet and create a spreadsheet with only the columns you need.
+- Item template creator - create an item template by letting the program remove the columns that aren't needed automatically.
+- Image template creator - create an image template by uploading images and a spreadsheet to associate images with each UPC/SKU.
+- Column merger - merge columns together from the same spreadsheet or multiple spreadsheets.
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 

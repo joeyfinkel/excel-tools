@@ -3,24 +3,20 @@ import { dragDrop, dragDropEvent } from '../components/built/dragDrop.js';
 import { componentIds, lblText, dataAttributes } from '../utils/text.js';
 import { sheetsViewEvents } from '../components/built/sheetView.js';
 import { headersViewEvents } from '../components/built/headersView.js';
-
+import { navigateTo } from '../utils/router.js';
 /**
  * Creates a section with the id of `templateType` with the page contents.
  * @param {{type: string, title: string, headings: string[]}} templateType Type of template to create.
  * @returns {string} The HTML for the specified template.
  */
-export const createView = (templateType) => {
-  document.title = templateType.title;
-
-  return `
-    <section id=${templateType.type}>
-      ${templateMainSection(
-        templateType.headings.map((headings) => headings).join(''),
-        dragDrop(componentIds.dragDrop.children(templateType.type), lblText)
-      )}
-    </section>
-  `;
-};
+export const createView = (templateType) => `
+  <section id=${templateType.type}>
+    ${templateMainSection(
+      templateType.headings.map((headings) => headings).join(''),
+      dragDrop(componentIds.dragDrop.children(templateType.type), lblText)
+    )}
+  </section>
+`;
 
 /**
  * Adds {@link dragDropEvent}, {@link sheetsViewEvents}, and {@link headersViewEvents} to the specified template.
@@ -39,13 +35,14 @@ export const callEvents = (templateType) => {
 
   // Adds events for every component for every page
   for (const template in templateType) {
-    const type = templateType[template].type;
+    const specificTemplate = templateType[template];
+    const type = specificTemplate.type;
 
     if (window.location.href.includes(type)) {
       navButtonEvent();
-      dragDropEvent(templateType);
-      sheetsViewEvents(templateType);
-      headersViewEvents(templateType, lblText);
+      dragDropEvent(specificTemplate);
+      sheetsViewEvents(specificTemplate);
+      headersViewEvents(specificTemplate, lblText);
     }
   }
 };

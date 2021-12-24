@@ -1,6 +1,11 @@
 import { dataAttributes } from '../../utils/text.js';
 
-/** @type {string[]} List of final headers to use for the new sheet. */
+/**
+ * Used when `templateType.type === 'column-remover'`.
+ *
+ * List of final headers to use for the new sheet.
+ *
+ * @type {string[]}  */
 export const finalHeaders = [];
 
 const boxAttr = dataAttributes.checkbox;
