@@ -15,7 +15,7 @@ import { getHeadersViewId } from '../../built/headersView.js';
 import { finalHeaders } from '../checkbox.js';
 import { headers } from '../../../views/itemTemplate.js';
 import { getSheetsViewId } from '../../built/sheetView.js';
-import { insertColumnAt } from '../../../utils/swapColumns.js';
+import { insertColumnAt, rearrangeData } from '../../../utils/swapColumns.js';
 
 /**
  * Creates the button used for creating a new sheet.
@@ -60,18 +60,14 @@ export const createNewSheetEvent = async (activeSheet, templateType) => {
       indices = indicesToRemove(originalHeaders, headers.toRemove, type);
 
       removeData(dataFromStorage, indices).forEach((row) => newData.push(row));
-      renameHeadersObj(newData, {
-        asin: 'ASIN',
-        model: 'SKU',
-        description: 'Marketing Copy',
-        upcList: 'UPC',
-      });
+      renameHeadersObj(newData, headers.toRename);
       renameDims(newData, 'item', 'Item');
       renameDims(newData, 'package', 'Package');
       renameFeatures(newData);
 
-      insertColumnAt(newData, newData[0].indexOf('UPC'), 0);
-      insertColumnAt(newData, newData[0].indexOf('SKU'), 1);
+      // insertColumnAt(newData, newData[0].indexOf('UPC'), 0);
+      // insertColumnAt(newData, newData[0].indexOf('SKU'), 1);
+      rearrangeData(newData);
       // #TODO Figure out best way to implement column mover for all columns.
       console.log(newData);
 

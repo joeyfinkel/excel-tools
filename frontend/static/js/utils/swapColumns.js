@@ -1,29 +1,28 @@
-/**
- * Gets the index of each search value provided from `headers`.
- * @param {string[]} headers List of headers from the uploaded sheet.
- * @param  {...any} searchValue Names of headers to search for and get their indices.
- * @returns {number[]} List of the searchValues's indices.
- */
-export const getIndicesToSwap = (headers, ...searchValue) => {
-  const indexList = [];
-
-  searchValue.forEach((value) => indexList.push(headers.indexOf(value)));
-
-  return indexList;
-};
+import { getRemainingHeaders } from '../views/itemTemplate.js';
 
 /**
- * Swaps `valueA` with `valueB`.
- * @param {*[]} row Row from the uploaded sheet.
- * @param {number} valueA Index from the row to swap.
- * @param {number} valueB Index from the row to swap.
+ * Moves the column to a new position in the array.
+ * @param {*[] } data Data to write to ne sheet.
+ * @param {number} from Index to get column from.
+ * @param {number} to Index to move column to.
  */
-export const swap = (row, valueA, valueB) => {
-  const temp = row[valueA];
-
-  row[valueA] = row[valueB];
-  row[valueB] = temp;
-};
-
-export const insertColumnAt = (data, from, to) =>
+export const insertColumnAt = (data, from, to) => {
   data.forEach((row) => row.splice(to, 0, row.splice(from, 1)[0]));
+};
+
+export const rearrangeData = (data) => {
+  const newOrder = [
+    'UPC',
+    'SKU',
+    'ASIN',
+    'manufacturer',
+    'brand',
+    'title',
+    'Marketing Copy',
+    ...getRemainingHeaders(data[0], 'Bullet', 'Item', 'Package'),
+  ];
+  console.log(newOrder);
+  newOrder.forEach((header, idx) =>
+    insertColumnAt(data, newOrder.indexOf(header), idx)
+  );
+};

@@ -43,6 +43,7 @@ export const renameFeatures = (data) => {
  */
 export const renameHeadersObj = (data, headersObj) => {
   const headers = data[0];
+
   for (const key in headersObj)
     headers.splice(headers.indexOf(key), 1, headersObj[key]);
 };
