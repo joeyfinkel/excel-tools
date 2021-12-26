@@ -64,17 +64,12 @@ export const createNewSheetEvent = async (activeSheet, templateType) => {
       renameDims(newData, 'item', 'Item');
       renameDims(newData, 'package', 'Package');
       renameFeatures(newData);
+      rearrangeData(newData).forEach((row) =>
+        transformedData.push(transformData(row))
+      );
 
-      // insertColumnAt(newData, newData[0].indexOf('UPC'), 0);
-      // insertColumnAt(newData, newData[0].indexOf('SKU'), 1);
-      rearrangeData(newData);
-      // #TODO Figure out best way to implement column mover for all columns.
-      console.log(newData);
-
-      newData.forEach((row) => transformedData.push(transformData(row)));
-
-      // await writeXlsxFile(transformedData, { fileName: 'Item Template.xlsx' });
-      // removeElementById(getSheetsViewId(type));
+      await writeXlsxFile(transformedData, { fileName: 'Item Template.xlsx' });
+      removeElementById(getSheetsViewId(type));
       break;
     default:
       break;
