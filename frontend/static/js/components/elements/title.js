@@ -20,7 +20,7 @@ export const createDocumentTitle = (
  * @param {string} text The text for the heading.
  * @returns {string} `<h1>text</h1>`
  */
-export const createMainHeading = (text) => `
+const createMainHeading = (text) => `
   <h1 class='h1 text-center mt-4 mb-2'>
     <strong>${text}</strong>
   </h1>
@@ -31,8 +31,14 @@ export const createMainHeading = (text) => `
  * @param {string} text The text for the heading.
  * @returns {string} `<h5>text</h5>`
  */
-export const createSubheading = (text) => `
+const createSubheading = (text) => `
   <h5 class='h5 text-center mt-4 mb-2'>
     <strong>${text}</strong>
   </h5>
 `;
+
+export const createDocumentHeadings = (...text) => [
+  createMainHeading(text[0]),
+  createSubheading(text[1]),
+  createSubheading(text[2]),
+];

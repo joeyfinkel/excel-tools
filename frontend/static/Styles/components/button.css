@@ -11,10 +11,8 @@
 }
 
 .btn-create {
-  position: absolute;
-  margin: 0px 20px 15px 0px;
-  bottom: 0;
-  right: 0;
+  margin: 20px 15px;
+  float: right;
 }
 
 .fa-arrow-right {

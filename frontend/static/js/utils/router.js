@@ -3,6 +3,8 @@ import { columnRemoverView } from '../views/columnRemover.js';
 import { itemTemplateView } from '../views/itemTemplate.js';
 import { imageTemplateView } from '../views/imageTemplate.js';
 import { sheetMergerView } from '../views/sheetMerger.js';
+import { missingDataTemplateView } from '../views/missingDataSheet.js';
+import { tutorialsView } from '../views/tutorials.js';
 
 /**
  * Creates a new route object with a `path` and `view`.
@@ -22,6 +24,8 @@ export const router = async () => {
     createRoute('/item-template', itemTemplateView()),
     createRoute('/image-template', imageTemplateView()),
     createRoute('/sheet-merger', sheetMergerView()),
+    createRoute('/missing-data-template', missingDataTemplateView()),
+    createRoute('/tutorials', tutorialsView()),
   ];
 
   const potentialMatches = routes.map((route) => {

@@ -10,12 +10,12 @@ import {
   renameFeatures,
   renameHeadersObj,
 } from '../../../utils/headerManipulation.js';
-import { dragDrop } from '../../built/dragDrop.js';
+import { dragDropComponent } from '../../built/dragDrop.js';
 import { getHeadersViewId } from '../../built/headersView.js';
 import { finalHeaders } from '../checkbox.js';
 import { headers } from '../../../views/itemTemplate.js';
 import { getSheetsViewId } from '../../built/sheetView.js';
-import { insertColumnAt, rearrangeData } from '../../../utils/swapColumns.js';
+import { rearrangeData } from '../../../utils/swapColumns.js';
 
 /**
  * Creates the button used for creating a new sheet.
@@ -76,5 +76,5 @@ export const createNewSheetEvent = async (activeSheet, templateType) => {
   }
 
   localStorage.clear();
-  showComponent(dragDrop(type, lblText));
+  showComponent(dragDropComponent(type, lblText));
 };

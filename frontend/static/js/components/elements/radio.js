@@ -2,16 +2,17 @@ import { dataAttributes } from '../../utils/text.js';
 
 /**
  * Creates an input radio element with a label.
- * @param {string} name Id for the radio element.
+ * @param {string} radioName Id for the radio element.
  * @returns {string} The HTML for a radio input
  */
-export const createRadio = (name) => `
+export const createRadio = (radioName) => `
     <input
         type="radio"
-        name="sheet"
-        id="${name}"
+        id="${radioName}"
+        name="${radioName}"
+        value="${radioName}"
         class="sheet-radio form-check-input"
         ${dataAttributes.radio}
     />
-    <label for="${name}" class="form-check-label">${name}</label>
+    <label for="${radioName}" class="form-check-label">${radioName}</label>
 `;

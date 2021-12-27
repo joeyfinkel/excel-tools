@@ -1,16 +1,6 @@
 import { getRemainingHeaders } from '../views/itemTemplate.js';
 
 /**
- * Moves the column to a new position in the array.
- * @param {*[] } data Data to write to ne sheet.
- * @param {number} from Index to get column from.
- * @param {number} to Index to move column to.
- */
-export const insertColumnAt = (data, from, to) => {
-  data.forEach((row) => row.splice(to, 0, row.splice(from, 1)[0]));
-};
-
-/**
  *
  * @param {*[]} data Data to write to the new sheet.
  * @returns {[*[]]} Array of the data rearranged to follow the order of {@link newOrder}.
@@ -29,6 +19,7 @@ export const rearrangeData = (data) => {
     ...getRemainingHeaders(headers, 'Bullet', 'Item', 'Package'),
   ];
   const finalData = [];
+  const properHeaders = [];
 
   /**
    * Gets the index of every header that is in {@link newOrder} from {@link data}.
@@ -38,9 +29,10 @@ export const rearrangeData = (data) => {
     const index = [];
 
     data.forEach((row) =>
-      newOrder.forEach(
-        (header) => row.indexOf(header) > -1 && index.push(row.indexOf(header))
-      )
+      newOrder.forEach((header) => {
+        const headerIdx = row.indexOf(header);
+        headerIdx > -1 && index.push(headerIdx);
+      })
     );
 
     return index;
@@ -72,6 +64,13 @@ export const rearrangeData = (data) => {
 
     finalData.push(newRow);
   });
+
+  // Capitalizes the headers.
+  finalData[0][0].map((header) =>
+    properHeaders.push(`${header.charAt(0).toUpperCase()}${header.slice(1)}`)
+  );
+
+  finalData[0][0] = properHeaders;
 
   return finalData[0];
 };

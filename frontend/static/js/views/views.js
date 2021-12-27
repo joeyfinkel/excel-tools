@@ -1,5 +1,8 @@
 import { templateMainSection } from '../components/built/templateMainSection.js';
-import { dragDrop, dragDropEvent } from '../components/built/dragDrop.js';
+import {
+  dragDropComponent,
+  dragDropEvent,
+} from '../components/built/dragDrop.js';
 import { componentIds, lblText, dataAttributes } from '../utils/text.js';
 import { sheetsViewEvents } from '../components/built/sheetView.js';
 import { headersViewEvents } from '../components/built/headersView.js';
@@ -13,7 +16,7 @@ export const createView = (templateType) => `
   <section id=${templateType.type}>
     ${templateMainSection(
       templateType.headings.map((headings) => headings).join(''),
-      dragDrop(componentIds.dragDrop.children(templateType.type), lblText)
+      dragDropComponent(templateType.type, lblText)
     )}
   </section>
 `;
@@ -34,15 +37,15 @@ export const callEvents = (templateType) => {
   };
 
   // Adds events for every component for every page
-  for (const template in templateType) {
-    const specificTemplate = templateType[template];
-    const type = specificTemplate.type;
+  for (const templates in templateType) {
+    const template = templateType[templates];
+    const type = template.type;
 
     if (window.location.href.includes(type)) {
       navButtonEvent();
-      dragDropEvent(specificTemplate);
-      sheetsViewEvents(specificTemplate);
-      headersViewEvents(specificTemplate, lblText);
+      dragDropEvent(template);
+      sheetsViewEvents(template);
+      headersViewEvents(template, lblText);
     }
   }
 };

@@ -3,14 +3,13 @@ import {
   removeElementById,
   showComponent,
 } from '../../../utils/utils.js';
-import { dragDrop } from '../../built/dragDrop.js';
+import { dragDropComponent } from '../../built/dragDrop.js';
 import { sheetsView } from '../../built/sheetView.js';
-import * as types from '../../../utils/types.js';
 import { componentIds, dataAttributes } from '../../../utils/text.js';
 
 /**
  * Creates the back button to go to back to the previous view.
- * @returns {types.ITag} A font awesome icon of a right arrow.
+ * @returns {string} A font awesome icon of a right arrow.
  */
 export const createBackButton = () => `
   <i
@@ -37,12 +36,16 @@ export const backButtonEvent = (templateType, lblText) => {
     removeElementById(id(type));
     // Show sheets view
     showComponent(
-      sheetsView(templateType, JSON.parse(localStorage.getItem('sheetsInfo')))
+      sheetsView(
+        templateType,
+        JSON.parse(localStorage.getItem('sheetsInfo')),
+        localStorage.getItem('filename')
+      )
     );
   } else {
     // Remove sheets view
     removeElementById(container(type));
     // Show drag and drop
-    showComponent(dragDrop(type, lblText));
+    showComponent(dragDropComponent(type, lblText));
   }
 };

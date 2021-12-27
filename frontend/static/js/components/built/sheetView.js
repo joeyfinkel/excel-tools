@@ -3,7 +3,6 @@ import { createNextButton, nextButtonEvent } from '../elements/buttons/next.js';
 import { createSheetButton } from '../elements/buttons/createSheet.js';
 import { backButtonEvent, createBackButton } from '../elements/buttons/back.js';
 import { componentIds, dataAttributes, lblText } from '../../utils/text.js';
-import * as types from '../../utils/types.js';
 
 /** @type {string[]} The selected sheet. */
 export const activeSheet = [];
@@ -12,9 +11,10 @@ export const activeSheet = [];
  * of the uploaded spreadsheet.
  * @param {{type: string, title: string, headings: string[]}} templateType Type of template the event is being used for.
  * @param {[string, number, number]} sheetNames Array of all the sheets names from the uploaded spreadsheet.
- * @returns {types.sheetViewComponent} The HTML for the sheet view component.
+ * @param {string} filename The name of the file uploaded.
+ * @returns {string} The HTML for the sheet view component.
  */
-export const sheetsView = (templateType, sheetNames) => {
+export const sheetsView = (templateType, sheetNames, filename) => {
   const { container, sheetsWrapper } = componentIds.sheetsView;
   const { type } = templateType;
 
@@ -50,6 +50,11 @@ export const sheetsView = (templateType, sheetNames) => {
       class='sheet-display mx-auto mt-4'
     >
       ${createBackButton()}
+      <div class="ms-5 mt-4">
+        <div class="h2">
+          <strong>Sheets from ${filename}</strong>
+        </div>
+      </div>
       <div class='mt-4'>
         <div class='headers'>
           ${createHeadings()}

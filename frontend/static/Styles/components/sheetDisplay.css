@@ -18,6 +18,7 @@
   background-color: var(--bg-color-secondary);
   border-radius: var(--container-radius);
   padding-top: 40px;
+  overflow-y: auto;
 }
 
 .sheet-info {
