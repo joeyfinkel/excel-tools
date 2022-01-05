@@ -1,54 +1,16 @@
 @import url(../variables.css);
 
-.headers {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  flex-direction: row;
-  align-content: space-between;
-  justify-content: space-around;
-  align-items: center;
-  line-height: 0.5 !important;
-  border-bottom: 0.2px solid;
-}
-
 .sheet-display {
-  position: relative;
   width: var(--container-width);
-  height: calc(var(--container-height) * 2);
+  height: calc(var(--container-height) * 2.8);
   background-color: var(--bg-color-secondary);
   border-radius: var(--container-radius);
-  padding-top: 40px;
-  overflow-y: auto;
 }
 
-.sheet-info {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  flex-direction: row;
-  align-content: space-between;
-  justify-content: space-around;
+.underline {
   border-bottom: 0.2px solid;
-  margin-top: 15px;
 }
 
-.form-check {
-  display: grid !important;
-  grid-template-columns: repeat(3, 1fr);
-  flex-direction: row;
-  align-content: space-between;
-  justify-content: space-around;
-}
-
-.sheet-1 {
-  margin-left: 5px !important;
-}
-
-.column-names {
-  display: flex;
-  align-content: center;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  flex-direction: row;
+.text {
+  color: var(--text-color-primary) !important;
 }

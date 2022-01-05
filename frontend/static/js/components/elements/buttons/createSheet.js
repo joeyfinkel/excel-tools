@@ -1,21 +1,18 @@
+import { dataAttributes, lblText } from '../../../utils/text.js';
+import { removeElement, showComponent } from '../../../utils/utils.js';
+import { dragDropComponent } from '../../built/dragDrop.js';
+import { finalHeaders } from '../checkbox.js';
+import { headers } from '../../../views/itemTemplate.js';
+import { rearrangeData } from '../../../utils/swapColumns.js';
+import { renameHeaders } from '../../../utils/headerManipulation.js';
 import {
-  indicesToRemove,
+  headerIndex,
   removeData,
   transformData,
 } from '../../../utils/createSheet.js';
-import { dataAttributes, lblText } from '../../../utils/text.js';
-import { removeElementById, showComponent } from '../../../utils/utils.js';
-import {
-  renameDims,
-  renameFeatures,
-  renameHeadersObj,
-} from '../../../utils/headerManipulation.js';
-import { dragDropComponent } from '../../built/dragDrop.js';
-import { getHeadersViewId } from '../../built/headersView.js';
-import { finalHeaders } from '../checkbox.js';
-import { headers } from '../../../views/itemTemplate.js';
-import { getSheetsViewId } from '../../built/sheetView.js';
-import { rearrangeData } from '../../../utils/swapColumns.js';
+import { getSheetDataFromStorage } from '../../../utils/fileData.js';
+
+const { sheetsView, headersView, buttons } = dataAttributes;
 
 /**
  * Creates the button used for creating a new sheet.
@@ -24,22 +21,21 @@ import { rearrangeData } from '../../../utils/swapColumns.js';
 export const createSheetButton = () => `
   <button
     id="createSheet"
-    class="btn btn-create"
-    ${dataAttributes.buttons.createNewSheet}
+    class="btn btn-create position-absolute float-end me-3 mb-4"
+    ${buttons.newSheet}
   >Create Sheet</button>
 `;
 
 /**
  * Gets the sheet data from local storage, manipulates the data to only keep
  * the selected headers, and puts the data on a new spreadsheet.
- * @param {string} activeSheet The selected sheet from the uploaded XLSX file.
+ * @param {string} selectedSheet The selected sheet from the uploaded XLSX file.
  * @param {{type: string, title: string, headings: string[]}} templateType The template the drag
  * and drop component is being used for.
  */
-export const createNewSheetEvent = async (activeSheet, templateType) => {
-  const activeSheetData = localStorage.getItem(`${activeSheet}-RowsAndColumns`);
-  const dataFromStorage = JSON.parse(activeSheetData);
-  const originalHeaders = dataFromStorage[0];
+export const createNewSheetEvent = async (selectedSheet, templateType) => {
+  const dataFromStorage = getSheetDataFromStorage(selectedSheet)[0];
+  const originalHeaders = getSheetDataFromStorage(selectedSheet)[0][0];
   const uniqueFinalHeaders = [...new Set(finalHeaders)];
   const { type } = templateType;
   const newData = [];
@@ -47,29 +43,35 @@ export const createNewSheetEvent = async (activeSheet, templateType) => {
 
   switch (type) {
     case 'column-remover':
-      indices = indicesToRemove(originalHeaders, uniqueFinalHeaders, type);
+      indices = headerIndex(originalHeaders, uniqueFinalHeaders, type);
 
+      // Modify the data
       removeData(dataFromStorage, indices).forEach((row) =>
         newData.push(transformData(row))
       );
+
+      // Remove the data
       await writeXlsxFile(newData, { fileName: 'New Sheet.xlsx' });
-      removeElementById(getHeadersViewId(type));
+
+      removeElement(`[${headersView}]`);
+      break;
+    case 'sheet-merger':
       break;
     case 'item-template':
       const transformedData = [];
-      indices = indicesToRemove(originalHeaders, headers.toRemove, type);
+      indices = headerIndex(originalHeaders, headers.toRemove, type);
 
+      // Modify the data
       removeData(dataFromStorage, indices).forEach((row) => newData.push(row));
-      renameHeadersObj(newData, headers.toRename);
-      renameDims(newData, 'item', 'Item');
-      renameDims(newData, 'package', 'Package');
-      renameFeatures(newData);
+      renameHeaders(newData);
       rearrangeData(newData).forEach((row) =>
         transformedData.push(transformData(row))
       );
 
+      // Write the data
       await writeXlsxFile(transformedData, { fileName: 'Item Template.xlsx' });
-      removeElementById(getSheetsViewId(type));
+
+      removeElement(`[${sheetsView}]`);
       break;
     default:
       break;

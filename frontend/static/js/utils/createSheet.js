@@ -18,9 +18,6 @@ export const headerIndex = (headers, finalHeaders, templateType) => {
   return index;
 };
 
-export const indicesToRemove = (headers, finalHeaders, templateType) =>
-  headerIndex(headers, finalHeaders, templateType);
-
 /**
  * Removes the non selected header's indices from the data.
  * @param {[any[]]} dataFromStorage The data from the selected sheet.

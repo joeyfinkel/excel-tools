@@ -13,3 +13,7 @@
 .drag-drop-label:hover {
   cursor: pointer;
 }
+
+.warning {
+  font-size: 0.875em;
+}

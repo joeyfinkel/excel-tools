@@ -6,13 +6,13 @@ import { dataAttributes } from '../../utils/text.js';
  * @returns {string} The HTML for a radio input
  */
 export const createRadio = (radioName) => `
-    <input
-        type="radio"
-        id="${radioName}"
-        name="${radioName}"
-        value="${radioName}"
-        class="sheet-radio form-check-input"
-        ${dataAttributes.radio}
-    />
-    <label for="${radioName}" class="form-check-label">${radioName}</label>
+  <input
+      type="radio"
+      id="${radioName}"
+      name="${radioName}"
+      value="${radioName}"
+      class="form-check-input"
+      ${dataAttributes.radio}
+  />
+  <label for="${radioName}" class="form-check-label">${radioName}</label>
 `;

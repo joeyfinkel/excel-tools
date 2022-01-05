@@ -10,30 +10,23 @@
   box-shadow: 1px 1px var(--btn-color-hover);
 }
 
-.btn-create {
+/* .btn-create {
   margin: 20px 15px;
   float: right;
-}
+} */
 
-.fa-arrow-right {
-  width: 25px;
-  height: 25px;
-  position: absolute;
-  margin: 0px 20px 15px 0px;
+.fa-arrow-right,
+.btn-create {
   bottom: 0;
   right: 0;
 }
 
 .fa-arrow-left {
-  width: 25px;
-  height: 25px;
-  position: absolute;
-  margin: 20px 0px 0px 20px;
   top: 0;
   left: 0;
 }
 
-#showColumnNames:hover,
-#previousView:hover {
+.fa-arrow-right:hover,
+.fa-arrow-left:hover {
   cursor: pointer;
 }

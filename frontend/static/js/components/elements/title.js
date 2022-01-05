@@ -1,4 +1,15 @@
 /**
+ * Creates the title section for the component.
+ * @param {string} title The title of the component.
+ * @returns {string} The HTML for the title section of the component.
+ */
+export const titleSection = (title) => `
+  <p class='ms-5 my-4 h2 text-center'>
+    <strong>${title}</strong>
+  </p>
+`;
+
+/**
  * Creates the string for the document title. Implement by setting to `document.title`.
  * @param {boolean} main If true the main document title will be returned, otherwise return will be specific to `templateType`.
  * @param {string} templateType Name of the template to create the document title for.

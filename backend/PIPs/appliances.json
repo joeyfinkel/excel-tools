@@ -1,0 +1,34 @@
+{
+  "category": "Appliances - Small Kitchen Appliances",
+  "included": [
+    "Air Fryers",
+    "Electric Griddles",
+    "Bread Makers",
+    "Electric Kettles",
+    "Buffet Servers",
+    "Electric Pressure Cookers",
+    "Chocolate Fountains",
+    "Electric Skillets",
+    "Coffee Accessories",
+    "Espresso Machines",
+    "Coffee Grinders",
+    "Food Processors",
+    "Coffee Makers",
+    "Food Vacuum Sealers",
+    "Coffee Urns & Percolators",
+    "French Presses",
+    "Cotton Candy Makers",
+    "Hand Mixers",
+    "Countertop Blenders",
+    "Hot Plates",
+    "Deep Fryers",
+    "Ice Cream Makers",
+    "Dehydrators",
+    "Immersion Blenders",
+    "Egg Cookers",
+    "Indoor Grills"
+  ],
+  "naming": {
+    "air_fryers": "(Series) + [Capacity (qt.) 'Qt.'] + [Color/Finish] + [Small Electric Product Type] + ('with' Features)"
+  }
+}

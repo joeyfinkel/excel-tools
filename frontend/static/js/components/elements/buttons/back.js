@@ -1,22 +1,23 @@
+import { dragDropComponent } from '../../built/dragDrop.js';
+import { dataAttributes } from '../../../utils/text.js';
+import { sheetsViewComponent } from '../../sheets/component.js';
 import {
   getActiveComponent,
-  removeElementById,
+  removeElement,
   showComponent,
 } from '../../../utils/utils.js';
-import { dragDropComponent } from '../../built/dragDrop.js';
-import { sheetsView } from '../../built/sheetView.js';
-import { componentIds, dataAttributes } from '../../../utils/text.js';
+
+const { sheetsView, headersView } = dataAttributes;
 
 /**
  * Creates the back button to go to back to the previous view.
  * @returns {string} A font awesome icon of a right arrow.
  */
 export const createBackButton = () => `
-  <i
-    id="previousView"
-    class="fas fa-arrow-left fa-lg"
-    ${dataAttributes.buttons.backButton}
-  ></i>
+  <p
+    class='fas fa-arrow-left fa-lg position-absolute ms-3 mt-4'
+    ${dataAttributes.buttons.back}
+  ></p>
 `;
 
 /**
@@ -25,26 +26,21 @@ export const createBackButton = () => `
  * @param {string} lblText Text for the drag and drop component.
  */
 export const backButtonEvent = (templateType, lblText) => {
-  const {
-    sheetsView: { container },
-    headersView: { id },
-  } = componentIds;
   const { type } = templateType;
 
-  if (getActiveComponent(type) === 'headersView') {
+  if (getActiveComponent() === 'headersView') {
     // Remove headers view
-    removeElementById(id(type));
+    removeElement(`[${headersView}]`);
     // Show sheets view
     showComponent(
-      sheetsView(
+      sheetsViewComponent(
         templateType,
-        JSON.parse(localStorage.getItem('sheetsInfo')),
-        localStorage.getItem('filename')
+        JSON.parse(localStorage.getItem('sheetsInfo'))
       )
     );
   } else {
     // Remove sheets view
-    removeElementById(container(type));
+    removeElement(`[${sheetsView}]`);
     // Show drag and drop
     showComponent(dragDropComponent(type, lblText));
   }

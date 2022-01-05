@@ -20,19 +20,17 @@ export const mainView = () => {
 
     for (const templates in templateTypes) {
       const template = templateTypes[templates];
-      const { type, summaryTitle, summaryText } = template;
+      const { type, summaryAttributes } = template;
 
       if (type === 'main' || type === 'tutorials') continue;
 
       message += `
         <div class='mt-5 mb-5' id='${type}-Summary'>
-          <p class="h3 summary-title">${summaryTitle}</p>
-          <p class='h6 summary-text'>${summaryText}</p>
+          <p class="h3 summary-title">${summaryAttributes?.title}</p>
+          <p class='h6 summary-text'>${summaryAttributes?.text}</p>
         </div>
       `;
     }
-
-    // return message.replace(/false/g, '');
 
     return message;
   };

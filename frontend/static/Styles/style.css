@@ -16,7 +16,11 @@ a {
 }
 
 .content {
-  width: calc(100vh - 250px);
+  width: calc(100vh - var(--navbar-width));
+}
+
+#sheetDisplays {
+  width: max-content;
 }
 
 /* Scrollbar styles. */

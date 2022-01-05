@@ -11,8 +11,8 @@ export const finalHeaders = [];
 const boxAttr = dataAttributes.checkbox;
 
 /**
- * Creates a checkbox with a unique Id and name.
- * @param {string} name The name for the checkbox. Used for the Id and name.
+ * Creates a checkbox.
+ * @param {string} name The name for the checkbox. Used for the id and name.
  * @returns {string} A checkbox.
  */
 export const createCheckbox = (name) => `
