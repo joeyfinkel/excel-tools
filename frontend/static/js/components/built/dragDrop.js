@@ -1,11 +1,7 @@
 import { sheetsViewComponent } from '../sheets/component.js';
 import { getSheetData } from '../../utils/fileData.js';
 import { dataAttributes } from '../../utils/text.js';
-import {
-  removeElement,
-  saveToLocalStorage,
-  showComponent,
-} from '../../utils/utils.js';
+import { removeElement, showComponent } from '../../utils/utils.js';
 
 const {
   dragDrop: { main, child },
@@ -60,25 +56,26 @@ export const dragDropEvent = (templateType) => {
    */
   const showSheetInformation = async (...files) => {
     const filesObj = {};
+    const sheetDataObj = {};
 
     for (const file of files) {
       const sheets = await readXlsxFile(file, {
         getSheets: true,
       });
-      const sheetData = await getSheetData(sheets, file);
       const filename = file.name.replace('.xlsx', '');
-      const sheetDataObj = {};
 
-      // Populating fileObj
-      sheetDataObj[filename] = sheetData;
-      filesObj['files'] = sheetDataObj;
+      sheetDataObj[filename] = await getSheetData(sheets, file);
 
       // Removes the component if it exists.
       document.querySelector(dragDropSelector) &&
         removeElement(dragDropSelector);
     }
 
-    saveToLocalStorage('filesData', filesObj);
+    filesObj['files'] = sheetDataObj;
+
+    console.log(filesObj);
+    
+    localStorage.setItem('filesData', JSON.stringify(filesObj, null, 2));
     showComponent(sheetsViewComponent(templateType, filesObj));
   };
 

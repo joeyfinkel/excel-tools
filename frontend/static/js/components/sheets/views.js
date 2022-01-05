@@ -43,23 +43,34 @@ export const columnRemover = (filesObj) => {
  * @param {[string, [string, number, number]]} sheetData Array containing the sheet names, total columns, and total rows from the uploaded spreadsheet.
  * @returns {string} The HTML for the component when on sheet merger view.
  */
-export const sheetMergerComponent = (sheetData) => {
+export const sheetMergerComponent = (filesObj) => {
   const title = titleSection('Select a sheet from each file');
   let html = '';
 
-  sheetData.map((data) => {
-    const [filename, sheetInformation] = data;
+  for (const files in filesObj) {
+    /** Object with the filenames as keys and data as values */
+    const filenamesObj = filesObj[files];
 
-    html += `
-      <section id='${filename}Data' class='col'>
-        <p class="h4 ms-3">${filename}:</p>
-        ${headingsSection()}
-        ${sheetDataSection(sheetInformation)}
-      </section>
-    `;
+    for (const filename in filenamesObj) {
+      const dataFromFile = filenamesObj[filename];
+      let sheetData = '';
 
-    return html;
-  });
+      for (const data in dataFromFile) {
+        const { name, columns, rows } = dataFromFile[data];
+        const radioId = `${filename}_${name}`;
+
+        sheetData += sheetDataSection(name, radioId, columns, rows);
+      }
+
+      html += `
+        <section id='${filename}Data' class='col overflow-auto'>
+          <p class="h4 ms-3">${filename}:</p>
+          ${headingsSection()}
+          ${sheetData}
+        </section>
+      `;
+    }
+  }
 
   return `
     ${title}

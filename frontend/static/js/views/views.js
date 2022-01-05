@@ -34,6 +34,7 @@ export const callEvents = (templateTypes) => {
   const navButtonEvent = () => {
     document.body.addEventListener('click', (e) => {
       if (e.target.matches(`[${dataAttributes.buttons.nav}]`)) {
+        localStorage.clear();
         e.preventDefault();
         navigateTo(e.target.href);
       }

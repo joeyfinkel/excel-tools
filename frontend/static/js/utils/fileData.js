@@ -1,8 +1,3 @@
-import {
-  saveRowsAndColumns,
-  saveSheetNames,
-  saveSheetInformation,
-} from './utils.js';
 
 /**
  * Gets each sheet name, total columns, and total rows in every sheet in the file uploaded.
@@ -26,15 +21,11 @@ export const getSheetData = async (sheets, file) => {
   };
 
   for (const sheet of getSheets()) {
-    const sheetNames = getSheets();
     /** Read each sheet's data */
     const data = await readXlsxFile(file, {
       sheet,
     });
-    const filename = file.name.replace('.xlsx', '');
 
-    saveRowsAndColumns(`${filename}-${sheet}`, data);
-    saveSheetNames(sheetNames);
     data.forEach((row) => (columns = row.length));
     sheetData.push({
       name: sheet,
@@ -43,8 +34,6 @@ export const getSheetData = async (sheets, file) => {
       sheetData: data,
     });
   }
-
-  saveSheetInformation(sheetData);
 
   return sheetData;
 };

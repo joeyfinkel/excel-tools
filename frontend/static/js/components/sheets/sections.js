@@ -28,12 +28,13 @@ export const headingsSection = () => {
  * Creates the HTML for every sheet in the file that displays the sheet name, total columns,
  * and total rows. It is shown on the sheets view component.
  * @param {string} name The name of the sheet.
+ * @param {string} id The id for the radio.
  * @param {number} columns The total number of columns in the sheet.
  * @param {number} rows The total number of rows in the sheet.
  * @returns {string} The HTML that displays the sheet name, total columns, and total rows.
  */
-export const sheetDataSection = (name, columns, rows) => {
-  const sheetData = [createRadio(name), columns, rows];
+export const sheetDataSection = (name, id, columns, rows) => {
+  const sheetData = [createRadio(name, id), columns, rows];
 
   const row = () =>
     sheetData
